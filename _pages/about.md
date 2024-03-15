@@ -30,7 +30,9 @@ My research interest includes multimodal large language models(MLLMs) and retrie
 
 
 # 🎖 Honors and Awards
-
+- *2023.07*, Meritorious award, Mathematical Contest in Modeling and Interdisciplinary Contest in Modeling (MCM/ICM), COMAP.
+- *2022.05*, National Second Prize, China Undergraduate Mathematical Contest in Modeling(CUMCM), China Society for Industrial and Applied Mathematics(CSIAM).
+- *2022.05*, Finalist award, Mathematical Contest in Modeling and Interdisciplinary Contest in Modeling (MCM/ICM), COMAP.
 
 # 📖 Educations
 - *2020.09 - 2024.06*, Undergraduate, Wuhan University. 
