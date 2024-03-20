@@ -1,14 +1,16 @@
-# Nerfies
+# note
 
-This is the repository that contains source code for the [Nerfies website](https://nerfies.github.io).
+This is the repository that contains source code for the [Alpha clip](https://github.com/SunzeY/AlphaCLIP).
 
-If you find Nerfies useful for your work please cite:
+If you find Alpha cli useful for your work please cite:
 ```
-@article{park2021nerfies
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
+@misc{sun2023alphaclip,
+      title={Alpha-CLIP: A CLIP Model Focusing on Wherever You Want}, 
+      author={Zeyi Sun and Ye Fang and Tong Wu and Pan Zhang and Yuhang Zang and Shu Kong and Yuanjun Xiong and Dahua Lin and Jiaqi Wang},
+      year={2023},
+      eprint={2312.03818},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
 }
 ```
 
