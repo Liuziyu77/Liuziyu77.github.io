@@ -236,15 +236,18 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
 	            <div class="content has-text-justified">
 	              <p>
 	               We propose augmenting standard MLLMs with our RAR, a retrieving-and-ranking augmented technique. Our RAR enables models to dynamically incorporate external knowledge into the processing and generation workflows. By augmenting MLLMs with external knowledge sources, we address challenges related to language ambiguity, synonym handling, and the limitations imposed by limited context windows when dealing with vast vocabularies. Our method uses the inherent strength of MLLMs in generalizing from existing knowledge while addressing their limitations in visual recognition. We design a multimodal retriever that extracts the image or text embeddings and stores embeddings in an external memory M. For the inference stage of downstream recognition tasks, we retrieve top-k categories from the memory and use MLLMs to refine the retrieved results as the final prediction through ranking.
-					<centering>
-	<!--                   <div style="text-align: center;">
-	                    <img id="teaser" width="100%" src="static/images/teaser.png">     
-	                  </div><br> -->
 	                <centering>
 	                  <div style="text-align: center;">
 	                    <img id="teaser" width="100%" src="static/images/pipeline_rar.png">     
 	                  </div> 
-              </p>
+                       </p>
+		       <p>
+	               Here，we showcase the dataset utilized in our RAR testing, featuring an extensive array of fine-grained classification datasets alongside detection datasets enriched with a vast vocabulary.
+			<centering>
+	                  <div style="text-align: center;">
+	                    <img id="teaser" width="100%" src="static/images/dataset_rar.png">     
+	                  </div> 
+                       </p>
             </div>
             </b></font>
           </div>
