@@ -226,7 +226,7 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
 <section class="section" id="RAR Introduction">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> RAR Pipeline</h2>
+          <h2 class="title is-3"> RAR System Overview</h2>
         </div>
       </div>
       <div class="container is-max-desktop">
@@ -322,10 +322,10 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
       </div>
     </section>
 
-<section class="section" id="Alpha-CLIP">
+<section class="section" id="RAR">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> Alpha-CLIP in MLLM</h2>
+          <h2 class="title is-3"> RAR in Zero-Shot Object Recognition</h2>
         </div>
       </div>
       <div class="container is-max-desktop">
@@ -333,16 +333,24 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
           <div class="column is-full-width">
             <div class="content has-text-justified">
               <p>
-                We replace CLIP used in BLIP-2 and LLaVA-1.5 with our Alpha-CLIP to make MLLM directly focus on <b>user-defined region</b> in vision-language tasks such as <b>region level captioning</b> and <b>VQA</b>. All cases shown here are made simply by replacing the original CLIP of BLIP2 or LLaVA-1.5 with a <b>plug-in</b> Alpha-CLIP without further tuning.
+               We extended our multimodal retriever to zero-shot recognition on object detection datasets such as LVIS and V3Det. Compared to the classification datasets, we apply the additional pre-processing techniques such as cropping and resizing to extract the image embeddings. Our improved detection pipeline is illustrated as follows:
                 <centering>
                   <div style="text-align: center;">
-                    <img id="mllm" width="100%" src="static/images/mllm_more1.png">     
+                    <img id="mllm" width="100%" src="static/images/detection_rar.png">     
                   </div>
               </p>
             </div> <br>
 			<!--      results-->
-			<p>Besides qualitative results, we also provide quantitative region captioning results of Alpha-CLIP with LLaVA-1.5 on Visual Genome and RefCOCOg.</p>
-			<div style="text-align: center;">
+			<p> Given the pre-existing object proposals such as ground-truth box annotations, the zero-shot object recognition task measures the model’s capability of aligning regions with textual class descriptions. We select two representative models CLIP and RegionCLIP and report their performances as the baseline results.</p>
+			<div style="display: flex; justify-content: center;">
+			    <div style="flex: 1; text-align: center;">
+			        <img id="image1" style="width: 50%;" src="detection1_rar.png">
+			    </div>
+			    <div style="flex: 1; text-align: center;">
+			        <img id="image2" style="width: 50%;" src="detection2_rar.png">
+			    </div>
+			</div>
+<!-- 			<div style="text-align: center;">
 				<table border="1" cellspacing="0" style="width: 92%; border-collapse: collapse; text-align: center; margin: 0 auto;">
 					<caption><strong>Performance of Alpha-CLIP in Region-Level Captioning</strong>: We report METEOR and CIDEr metrics on Visual Genome and refCOCOg Datasets, demonstrating competitive outcomes.</caption>
 					<thead>
@@ -396,7 +404,7 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
 						</tr>
 					</tbody>
 				</table>
-			</div>
+			</div> -->
             </b></font>
           </div>
         </div>
