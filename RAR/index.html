@@ -228,21 +228,21 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
         <div class="column is-six-fifths">
           <h2 class="title is-3"> RAR System Overview</h2>
         </div>
-      </div>
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column is-full-width">
-            <div class="content has-text-justified">
-              <p>
-               We propose augmenting standard MLLMs with our RAR, a retrieving-and-ranking augmented technique. Our RAR enables models to dynamically incorporate external knowledge into the processing and generation workflows. By augmenting MLLMs with external knowledge sources, we address challenges related to language ambiguity, synonym handling, and the limitations imposed by limited context windows when dealing with vast vocabularies. Our method uses the inherent strength of MLLMs in generalizing from existing knowledge while addressing their limitations in visual recognition. We design a multimodal retriever that extracts the image or text embeddings and stores embeddings in an external memory M. For the inference stage of downstream recognition tasks, we retrieve top-k categories from the memory and use MLLMs to refine the retrieved results as the final prediction through ranking.
-				<centering>
-<!--                   <div style="text-align: center;">
-                    <img id="teaser" width="100%" src="static/images/teaser.png">     
-                  </div><br> -->
-                <centering>
-                  <div style="text-align: center;">
-                    <img id="teaser" width="100%" src="static/images/pipeline_rar.png">     
-                  </div> 
+	    </div>
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered">
+	          <div class="column is-full-width">
+	            <div class="content has-text-justified">
+	              <p>
+	               We propose augmenting standard MLLMs with our RAR, a retrieving-and-ranking augmented technique. Our RAR enables models to dynamically incorporate external knowledge into the processing and generation workflows. By augmenting MLLMs with external knowledge sources, we address challenges related to language ambiguity, synonym handling, and the limitations imposed by limited context windows when dealing with vast vocabularies. Our method uses the inherent strength of MLLMs in generalizing from existing knowledge while addressing their limitations in visual recognition. We design a multimodal retriever that extracts the image or text embeddings and stores embeddings in an external memory M. For the inference stage of downstream recognition tasks, we retrieve top-k categories from the memory and use MLLMs to refine the retrieved results as the final prediction through ranking.
+					<centering>
+	<!--                   <div style="text-align: center;">
+	                    <img id="teaser" width="100%" src="static/images/teaser.png">     
+	                  </div><br> -->
+	                <centering>
+	                  <div style="text-align: center;">
+	                    <img id="teaser" width="100%" src="static/images/pipeline_rar.png">     
+	                  </div> 
               </p>
             </div>
             </b></font>
@@ -257,20 +257,20 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
         <div class="column is-six-fifths">
           <h2 class="title is-3"> RAR in Few-Shot Image Recognition</h2>
         </div>
-      </div>
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column is-full-width">
-            <div class="content has-text-justified">
-              <p>
-		We employ our RAR in image classification. MLLMs, when integrated with retrieval capabilities, demonstrate impressive performance across various classification tasks, including those involving fine-grained datasets. The figure below illustrates one of our case studies.
-                <centering>
-                  <div style="text-align: center;">
-                    <img id="teaser" width="80%" src="static/images/prompt_rar.png">     
-                  </div>
-              </p>
-            </div>
-            </b></font><br>
+	    </div>
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered">
+	          <div class="column is-full-width">
+	            <div class="content has-text-justified">
+	              <p>
+			We employ our RAR in image classification. MLLMs, when integrated with retrieval capabilities, demonstrate impressive performance across various classification tasks, including those involving fine-grained datasets. The figure below illustrates one of our case studies.
+	                <centering>
+	                  <div style="text-align: center;">
+	                    <img id="teaser" width="80%" src="static/images/prompt_rar.png">     
+	                  </div>
+	              </p>
+	            </div>
+	            </b></font><br>
 			<p> Our results are as follows. Compared to the CLIP initial retrieval results(top row) , our RAR (third row) with ranking facilitates a notable increase in classification accuracy. Additionally, we observe that LLaVA1.5 + finetuning (second row) baseline underperforms in datasets with large vocabularies such as ImageNet due to the constraint of LLMs’ context window.</p>
 <!-- 			<div style="text-align: center;">
 				<table border="1" cellspacing="0" style="width: 92%; border-collapse: collapse; text-align: center; margin: 0 auto;">
@@ -327,19 +327,19 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
         <div class="column is-six-fifths">
           <h2 class="title is-3"> RAR in Zero-Shot Object Recognition</h2>
         </div>
-      </div>
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column is-full-width">
-            <div class="content has-text-justified">
-              <p>
-               We extended our multimodal retriever to zero-shot recognition on object detection datasets such as LVIS and V3Det. Compared to the classification datasets, we apply the additional pre-processing techniques such as cropping and resizing to extract the image embeddings. Our improved detection pipeline is illustrated as follows:
-                <centering>
-                  <div style="text-align: center;">
-                    <img id="mllm" width="100%" src="static/images/detection_rar.png">     
-                  </div>
-              </p>
-            </div> <br>
+	    </div>
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered">
+	          <div class="column is-full-width">
+	            <div class="content has-text-justified">
+	              <p>
+	               We extended our multimodal retriever to zero-shot recognition on object detection datasets such as LVIS and V3Det. Compared to the classification datasets, we apply the additional pre-processing techniques such as cropping and resizing to extract the image embeddings. Our improved detection pipeline is illustrated as follows:
+	                <centering>
+	                  <div style="text-align: center;">
+	                    <img id="mllm" width="100%" src="static/images/detection_rar.png">     
+	                  </div>
+	              </p>
+	            </div> <br>
 			<!--      results-->
 			<p> Given the pre-existing object proposals such as ground-truth box annotations, the zero-shot object recognition task measures the model’s capability of aligning regions with textual class descriptions. We select two representative models CLIP and RegionCLIP and report their performances as the baseline results.</p>
 			<div style="display: flex; justify-content: center;">
