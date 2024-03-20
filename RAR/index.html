@@ -223,10 +223,10 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
       </div>
 </section><br>
 
-<section class="section" id="Alpha-CLIP usage">
+<section class="section" id="RAR Introduction">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> Alpha-CLIP Usage</h2>
+          <h2 class="title is-3"> RAR Pipeline</h2>
         </div>
       </div>
       <div class="container is-max-desktop">
@@ -234,14 +234,14 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
           <div class="column is-full-width">
             <div class="content has-text-justified">
               <p>
-                Alpha-CLIP can enhance CLIP across a wide array of downstream tasks, applying a <b>plug-and-play</b> methodology that permeates diverse domains, spanning from <b>perception to generation</b> in <b>2D and 3D applications</b>. We show downstream tasks of Alpha-CLIP and their advantages over the original CLIP in the following figure and table.
+               we propose augmenting standard MLLMs with our RAR, a retrieving-and-ranking augmented technique. Our RAR enables models to dynamically incorporate external knowledge into the processing and generation workflows. By augmenting MLLMs with external knowledge sources, we address challenges related to language ambiguity, synonym handling, and the limitations imposed by limited context windows when dealing with vast vocabularies. Our method uses the inherent strength of MLLMs in generalizing from existing knowledge while addressing their limitations in visual recognition. We design a multimodal retriever that extracts the image or text embeddings and stores embeddings in an external memory M. For the inference stage of downstream recognition tasks, we retrieve top-k categories from the memory and use MLLMs to refine the retrieved results as the final prediction through ranking.
 				<centering>
 <!--                   <div style="text-align: center;">
                     <img id="teaser" width="100%" src="static/images/teaser.png">     
                   </div><br> -->
                 <centering>
                   <div style="text-align: center;">
-                    <img id="teaser" width="100%" src="static/images/usage_table1.png">     
+                    <img id="teaser" width="100%" src="static/images/pipline_rar.png">     
                   </div> 
               </p>
             </div>
