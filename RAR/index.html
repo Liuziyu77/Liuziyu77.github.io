@@ -142,12 +142,12 @@
               <!-- Code Link. -->
               <span class="link-block"> <a href="https://github.com/Liuziyu77/RAR"
                    class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="fab fa-github"></i> </span> <span>Code</span> </a> </span>
-<!--               <!-- Dataset Link. -->
-              <span class="link-block"> <a href="https://huggingface.co/spaces/Zery/Alpha-CLIP_LLaVA-1.5"
-                   class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="far fa-images"></i> </span> <span>Alpha-CLIP+LLM Demo</span></a></span>
+              <!-- Dataset Link. -->
+             <!--  <span class="link-block"> <a href="https://huggingface.co/spaces/Zery/Alpha-CLIP_LLaVA-1.5" -->
+             <!--       class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="far fa-images"></i> </span> <span>Alpha-CLIP+LLM Demo</span></a></span> -->
 	      <!-- Dataset Link. -->
-              <span class="link-block"> <a href="https://huggingface.co/spaces/Zery/Alpha_CLIP_ImgVar"
-                   class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="far fa-images"></i> </span> <span>Alpha-CLIP+ImgVar Demo</span></a></span></div> -->
+            <!--   <span class="link-block"> <a href="https://huggingface.co/spaces/Zery/Alpha_CLIP_ImgVar" -->
+              <!--      class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="far fa-images"></i> </span> <span>Alpha-CLIP+ImgVar Demo</span></a></span></div> -->
           	 </div>
        	   </div>
         </div>
@@ -176,18 +176,16 @@
 			}
 		  </style>
           <p>
-            Contrastive Language-Image Pre-training (CLIP) plays an essential role in extracting valuable content information from images across diverse tasks. It aligns textual and visual modalities to comprehend the entire image, including all the details, even those irrelevant to specific tasks. However, for a finer understanding and controlled editing of images, it becomes crucial to focus on specific regions of interest, which can be indicated as points, masks, or boxes by humans or perception models.
+            CLIP (Contrastive Language–Image Pre-training) uses contrastive learning from noise image-text pairs to excel at recognizing a wide array of candidates, yet its focus on broad associations hinders the precision in distinguishing subtle differences among fine-grained items. Conversely, Multimodal Large Language Models (MLLMs) excel at classifying fine-grained categories, thanks to their substantial knowledge from pre-training on web-level corpora. However, the performance of MLLMs declines with an increase in category numbers, primarily due to growing complexity and constraints of limited context window size.
           </p>
           <p>
-            To fulfill the requirements, we introduce <span class="rainbow-text">Alpha-CLIP</span>, an enhanced version of CLIP with <b>an auxiliary alpha channel</b> to suggest attentive regions and fine-tuned with constructed <b> millions of RGBA region-text</b> pairs. Alpha-CLIP not only preserves the visual recognition ability of CLIP but also enables precise control over the emphasis of image contents. It demonstrates effectiveness in various tasks, including but not limited to <b>open-world recognition</b>, <b>multimodal large language models</b>, and <b>conditional 2D / 3D generation</b>. It has a strong potential to serve as a versatile tool for image-related tasks. All the code, models, and training data will be publicly available.
-          </p>
-        </div>
+            To synergize the strengths of both approaches and enhance the fewshot/zero-shot recognition abilities for datasets characterized by extensive and fine-grained vocabularies, this paper introduces RAR, a Retrieving And Ranking augmented method for MLLMs. We initially establish a multi-modal retriever based on CLIP to create and store explicit memory for different categories beyond the immediate context window. During inference, RAR retrieves the top-k similar results from the memory and uses MLLMs to rank and make the final predictions. Our proposed approach not only addresses the inherent limitations in fine-grained recognition but also preserves the model’s comprehensive knowledge base, significantly boosting accuracy across a range of vision-language recognition tasks. Notably, our approach demonstrates a significant improvement in performance on 5 fine-grained visual recognition benchmarks, 11 few-shot image recognition datasets, and the 2 object detection datasets under the zero-shot recognition setting.
       </div>
     </div>
     <!--/ Abstract. -->
 
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
+<!--     Paper video. -->
+<!--     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
         <h2 class="title is-3">Video</h2>
         <div class="publication-video">
@@ -195,7 +193,7 @@
                   frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
       </div>
-    </div>
+    </div> -->
     <!--/ Paper video. -->
   </div>
 
