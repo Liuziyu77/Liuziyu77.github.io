@@ -234,7 +234,7 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
           <div class="column is-full-width">
             <div class="content has-text-justified">
               <p>
-               we propose augmenting standard MLLMs with our RAR, a retrieving-and-ranking augmented technique. Our RAR enables models to dynamically incorporate external knowledge into the processing and generation workflows. By augmenting MLLMs with external knowledge sources, we address challenges related to language ambiguity, synonym handling, and the limitations imposed by limited context windows when dealing with vast vocabularies. Our method uses the inherent strength of MLLMs in generalizing from existing knowledge while addressing their limitations in visual recognition. We design a multimodal retriever that extracts the image or text embeddings and stores embeddings in an external memory M. For the inference stage of downstream recognition tasks, we retrieve top-k categories from the memory and use MLLMs to refine the retrieved results as the final prediction through ranking.
+               We propose augmenting standard MLLMs with our RAR, a retrieving-and-ranking augmented technique. Our RAR enables models to dynamically incorporate external knowledge into the processing and generation workflows. By augmenting MLLMs with external knowledge sources, we address challenges related to language ambiguity, synonym handling, and the limitations imposed by limited context windows when dealing with vast vocabularies. Our method uses the inherent strength of MLLMs in generalizing from existing knowledge while addressing their limitations in visual recognition. We design a multimodal retriever that extracts the image or text embeddings and stores embeddings in an external memory M. For the inference stage of downstream recognition tasks, we retrieve top-k categories from the memory and use MLLMs to refine the retrieved results as the final prediction through ranking.
 				<centering>
 <!--                   <div style="text-align: center;">
                     <img id="teaser" width="100%" src="static/images/teaser.png">     
@@ -255,7 +255,7 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
 <section class="section" id="RAR">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> Alpha-CLIP in Image Recognition</h2>
+          <h2 class="title is-3"> RAR in Few-Shot Image Recognition</h2>
         </div>
       </div>
       <div class="container is-max-desktop">
@@ -263,16 +263,16 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
           <div class="column is-full-width">
             <div class="content has-text-justified">
               <p>
-			  Alpha-CLIP boosts the capability of region-based recognition for original CLIP. We set alpha channel input to all one according to areas of interest to obtain precise object categories in complex images. The illustration are as follows.
+		We employ our RAR in image classification. MLLMs, when integrated with retrieval capabilities, demonstrate impressive performance across various classification tasks, including those involving fine-grained datasets. The figure below illustrates one of our case studies.
                 <centering>
                   <div style="text-align: center;">
-                    <img id="teaser" width="80%" src="static/images/recog_demo.png">     
+                    <img id="teaser" width="80%" src="static/images/prompt_rar.png">     
                   </div>
               </p>
             </div>
             </b></font><br>
-			<p> We test both original CLIP and Alpha-CLIP's recognition ability with different alpha-map levels on ImageNet. The results are as follows.</p>
-			<div style="text-align: center;">
+			<p> Our results are as follows. Compared to the CLIP initial retrieval results(top row) , our RAR (third row) with ranking facilitates a notable increase in classification accuracy. Additionally, we observe that LLaVA1.5 + finetuning (second row) baseline underperforms in datasets with large vocabularies such as ImageNet due to the constraint of LLMs’ context window.</p>
+<!-- 			<div style="text-align: center;">
 				<table border="1" cellspacing="0" style="width: 92%; border-collapse: collapse; text-align: center; margin: 0 auto;">
 				<style>
 					td {
@@ -314,7 +314,10 @@ Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 ac
 						</tr>
 					</tbody>
 				</table>
-          </div>
+          </div> -->
+	<div style="text-align: center;">
+	    <img id="teaser" width="80%" src="static/images/few_shot_rar.png">     
+	  </div>
         </div>
       </div>
     </section>
