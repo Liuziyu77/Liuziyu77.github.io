@@ -524,6 +524,75 @@ in red. This visualization verifies that Alpha-CLIP <b>pays more attention to th
       </div>
     </section> -->
 
+<section class="section" id="Interesting Observation">
+   <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3"> Interesting Observation</h2>
+        </div>
+	    </div>
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered">
+	          <div class="column is-full-width">
+	            <div class="content has-text-justified">
+	              <p>
+	               In the field of image classification, especially when facing the challenges of fine-grained image categorization, can
+MLLMs prove competent and effective? To further explore the potential of
+MLLMs in image classification tasks, we employed the GPT-4V model to test selected images from our fine-grained datasets.</p>
+			<centering>
+	                  <div style="text-align: center;">
+	                    <img id="teaser" width="100%" src="static/images/GPT4_rar.png">     
+	                  </div><br>
+			<p>GPT-4V identifies key characteristics such as “coupe” (a two-door car) and “long fuselage” (long body of an
+aircraft), which are crucial for distinguishing between similar categories.</p>
+				
+              <p>To further explore the potential of RAR, we expanded the memory size to include all images from the training set
+stored in memory. We then compared the performance of RAR under this setup with that of GPT-4V across multiple image classification datasets. The results
+are presented in the following table. The results show that, regardless of whether the base model is LLaVa, Intern-IXC2, or Qwen-VL, RAR significantly outperforms GPT-4V in
+terms of accuracy. It is observed that even 7B MLLMs, when integrated into the RAR pipeline, far surpass the classification capabilities
+of GPT-4V across multiple image classification datasets.</p>
+	<centering>
+	  <div style="text-align: center;">
+	    <img id="teaser" width="100%" src="static/images/GPT4re_rar.png">     
+	  </div><br>
+            </div>
+            </b></font>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="section" id="Ablation Study">
+   <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3"> Ablation Study</h2>
+        </div>
+	    </div>
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered">
+	          <div class="column is-full-width">
+	            <div class="content has-text-justified">
+	              <p>
+			In the experiments conducted for our
+paper, we selected the top 5 retrieved results for ranking. To test the scalability
+of this method, we conducted a new experiment using the top 10 retrieved results,
+ranking these ten categories and then assessing the accuracy of the top 5. In this
+experiment, we utilized a 4-shot setting, the result is shown below.
+	               <centering>
+	                  <div style="text-align: center;">
+	                    <img id="teaser" width="100%" src="static/images/top5_rar.png">     
+	                  </div><br>
+              </p>
+            </div>
+            </b></font>
+          </div>
+        </div>
+      </div>
+    </section>
+
+				 
+				 
 <footer class="footer">
   <div class="container">
   	<!-- link
