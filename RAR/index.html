@@ -203,12 +203,18 @@
             <h2 class="title is-3">🔥Highlight</h2>
             <div class="content has-text-justified">
               <p style="font-size: 15px;">
-                <ul>
+<!--                 <ul>
 				  <li><b>Alpha-CLIP in Image Recognition.</b> 
 Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 accuracy for the zero-shot ImageNet classification task. This <span style="color: #997300;">enhanced region-based recognition </span>is valuable for tasks like Referring Expression Comprehension(REC) and serves as data engine for Open Vocabulary Detection(OVD).</li>
 				  <li><b>Serving as vision backbone in MLLM.</b> In conjunction with a large language model, Alpha-CLIP becomes capable of facilitating <span style="color: #997300;"> region level captioning and VQA</span> within a MLLM framework(e.g. BLIP-2, LLaVA). This integration significantly mitigates the occurrences of hallucinations and diminishes model bias, while also empowers region-focused new tasks. </li>
 				  <li><b>Alpha-CLIP in 2D generation.</b> When integrated with a diffusion model, Alpha-CLIP enhances the controllability of BLIP-Diffusion in image variation tasks. In addition, it enables the extraction of subjects from <span style="color: #997300;"> complex images for subject-driven generation</span>, surmounting an obstacle encountered when deploying BLIP-Diffusion with the original CLIP, which only supports single subjects in simplistic images. </li>
 				  <li><b>Alpha-CLIP in 3D generation.</b> In addition to the capabilities in 2D generation, Alpha-CLIP exhibits proficiency in 3D generation as well. It can be effectively deployed in conjunction with a diffusion model, such as Point-E, to <span style="color: #997300;"> enhance the quality of 3D object generation</span>. Additionally, it can be utilized with NeRF, exemplified by PureCLIPNeRF, to optimize the creation of superior 3D objects. </li>
+				</ul> -->
+                <ul>
+				  <li><b>In-depth Observation.</b> We conduct an in-depth analysis of the strengths and weaknesses of VLMs and MLLMs in processing fine-grained datasets.</li>
+			          <li><b>Plug-and-Play.</b> Our RAR can be seamlessly integrated into various MLLMs in a plug-and-play manner.</li>
+				  <li><b>RAR in Classification.</b> In  few-shot image recognition, our approach boosts the top-1 accuracy from 57.0 to 63.2 (%) on the 4-shot setting, and from 63.0 to 69.8 (%) on the 8-shot setting.</li>
+				  <li><b>RAR in Detection.</b> In zero-shot object recognition, our approach yielded an 8.4 (%) point increase over the CLIP baseline and a 6.4 (%) enhancement relative to RegionCLIP</li>
 				</ul>
               </p>
             </div>
