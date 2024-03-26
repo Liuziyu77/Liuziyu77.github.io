@@ -27,7 +27,7 @@ My research interest includes multimodal large language models(MLLMs) and retrie
 
 
 # 📝 Selected Publications 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/RAR.jpg' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/RAR.png' alt="RAR" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [RAR:Retrieving And Ranking Augmented MLLMs for Visual Recognition](https://arxiv.org/abs/2403.13805)
