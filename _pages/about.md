@@ -26,7 +26,18 @@ My research interest includes multimodal large language models(MLLMs) and retrie
 # 🔥 News
 
 
-# 📝 Publications 
+# 📝 Selected Publications 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/RAR.jpg' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[RAR:Retrieving And Ranking Augmented MLLMs for Visual Recognition](https://arxiv.org/abs/2403.13805)
+
+Ziyu Liu\*, Zeyi Sun\*, Yuhang Zang, Wei Li, Pan Zhang, Xiaoyi Dong, Yuanjun Xiong, Dahua Lin, Jiaqi Wang
+<span style="color:red"> Combining retrieving and ranking with multi-modal large language models to revolutionize perception tasks such as fine-grained recognition, zero-shot image recognition, and few-shot object recognition. Our method opens up new avenues for research in augmenting the MLLM’s abilities with the retrieving-augmented solution and could be beneficial for other tasks such as reasoning and generation in future works.</span>
+
+[**Github** ![](https://img.shields.io/github/stars/Liuziyu77/RAR)](https://github.com/Liuziyu77/RAR)
+</div>
+</div>
 
 
 # 🎖 Honors and Awards
