@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="RAR">
+  <meta name="keywords" content="multimodal chatbot">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAR</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="static/images/icon.png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.27.0/gradio.js"></script>
+</head>
+
+
+<style>
+    .section {
+    margin-bottom: -30px; /* Adjust this value as needed to reduce the space */
+  }
+  .expandable-card .card-text-container {
+    max-height: 200px;
+    overflow-y: hidden;
+    position: relative;
+  }
+
+  .expandable-card.expanded .card-text-container {
+    max-height: none;
+  }
+
+  .expand-btn {
+    position: relative;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* margin-top: -20px; */
+    /* justify-content: center; */
+    color: #510c75;
+    border-color: transparent;
+  }
+
+  .expand-btn:hover {
+    background-color: rgba(200, 200, 200, 0.8);
+    text-decoration: none;
+    border-color: transparent;
+    color: #510c75;
+  }
+
+  .expand-btn:focus {
+    outline: none;
+    text-decoration: none;
+  }
+
+  .expandable-card:not(.expanded) .card-text-container:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1));
+  }
+
+  .expandable-card:not(.expanded) .expand-btn {
+    margin-top: -40px;
+  }
+
+  .card-body {
+    padding-bottom: 5px;
+  }
+
+  .vertical-flex-layout {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .figure-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .adjustable-font-size {
+    font-size: calc(0.5rem + 2vw);
+  }
+
+  .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* overflow-x: hidden; */
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  #gradio pre {
+    background-color: transparent;
+  }
+  
+	/* 使用渐变颜色实现彩虹字体 */
+	.rainbow-text {
+	  background: linear-gradient(to right, #3498db, #2ecc71);
+	  -webkit-background-clip: text;
+	  color: transparent;
+	  display: inline-block;
+	  font-weight: bold;
+	}
+  
+</style>
+
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><img id="logo" width="5%" src="static/images/logo_cat.jpg"> <span class="rainbow-text">RAR</span>: Retrieving And Ranking Augmented MLLMs for Visual Recognition</h1>
+          <div class="is-size-5 publication-authors"> <span class="author-block"> <a href="https://github.com/Liuziyu77">Ziyu Liu</a><sup>*1,4</sup>,</span> <span class="author-block"> <a href="https://github.com/SunzeY">*Zeyi Sun</a><sup>*2,4</sup>,</span> <span class="author-block"> <a href="https://yuhangzang.github.io/">Yuhang Zang</a><sup>4</sup>, </span> <span class="author-block">  <a href="https://scholar.google.be/citations?user=41KAd6AAAAAJ&hl=en">Wei Li</a><sup>6</sup>, </span> <span class="author-block"><a href="https://panzhang0212.github.io/">Pan Zhang</a><sup>4</sup>, </span> <span class="author-block"> <a href="https://lightdxy.github.io/">Xiaoyi Dong</a><sup>4</sup>, </div> <div class="is-size-5 publication-authors"> </span> <span class="author-block"> <a href="http://yjxiong.me/">Yuanjun Xiong</a><sup>5</sup>, </span> <span class="author-block"> <a href="http://dahua.site/">Dahua Lin</a><sup>3,4</sup>, </span> <span class="author-block"> <a href="https://myownskyw7.github.io/">Jiaqi Wang</a><sup>&dagger;4</sup> </span> </div>
+          <div class="is-size-5 publication-authors"> <span class="author-block"><sup>1</sup>Wuhan University,</span> <span class="author-block"><sup>2</sup>Shanghai Jiao Tong University,</span>  <span class="author-block"><sup>3</sup>The Chinese University of Hong Kong,</span><br> <span class="author-block"><sup>4</sup>Shanghai AI Laboratory,</span>
+              <span class="author-block"><sup>5</sup>MThreads, Inc.,</span> <span class="author-block"><sup>6</sup>Nanyang Technological University</span> </div>
+		  <div class="is-size-6 publication-authors">
+              <span class="author-block"><sup>*</sup>Equally contributing first authors. <sup>&dagger;</sup>Corresponding authors.</span>
+            </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block"> <a href="https://github.com/Liuziyu77/RAR"
+                   class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="ai ai-arxiv"></i> </span> <span>arXiv</span> </a> </span>
+              <!-- Code Link. -->
+              <span class="link-block"> <a href="https://github.com/Liuziyu77/RAR"
+                   class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="fab fa-github"></i> </span> <span>Code</span> </a> </span>
+              <!-- Dataset Link. -->
+             <!--  <span class="link-block"> <a href="https://huggingface.co/spaces/Zery/Alpha-CLIP_LLaVA-1.5" -->
+             <!--       class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="far fa-images"></i> </span> <span>Alpha-CLIP+LLM Demo</span></a></span> -->
+	      <!-- Dataset Link. -->
+            <!--   <span class="link-block"> <a href="https://huggingface.co/spaces/Zery/Alpha_CLIP_ImgVar" -->
+              <!--      class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="far fa-images"></i> </span> <span>Alpha-CLIP+ImgVar Demo</span></a></span></div> -->
+          	 </div>
+       	   </div>
+        </div>
+  </div>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+	<div style="text-align: center;">
+		<img id="teaser" width="100%" src="static/images/teaser_rar.png">     
+	  </div><br>
+	 
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+		  <style>
+			/* 使用渐变颜色实现彩虹字体 */
+			.rainbow-text {
+			  background: linear-gradient(to right, #3498db, #2ecc71);
+			  -webkit-background-clip: text;
+			  color: transparent;
+			  display: inline-block;
+			  font-weight: bold;
+			}
+		  </style>
+          <p>
+            CLIP (Contrastive Language–Image Pre-training) uses contrastive learning from noise image-text pairs to excel at recognizing a wide array of candidates, yet its focus on broad associations hinders the precision in distinguishing subtle differences among fine-grained items. Conversely, Multimodal Large Language Models (MLLMs) excel at classifying fine-grained categories, thanks to their substantial knowledge from pre-training on web-level corpora. However, the performance of MLLMs declines with an increase in category numbers, primarily due to growing complexity and constraints of limited context window size.
+          </p>
+          <p>
+            To synergize the strengths of both approaches and enhance the few-shot/zero-shot recognition abilities for datasets characterized by extensive and fine-grained vocabularies, this paper introduces RAR, a Retrieving And Ranking augmented method for MLLMs. We initially establish a multi-modal retriever based on CLIP to create and store explicit memory for different categories beyond the immediate context window. During inference, RAR retrieves the top-k similar results from the memory and uses MLLMs to rank and make the final predictions. Our proposed approach not only addresses the inherent limitations in fine-grained recognition but also preserves the model’s comprehensive knowledge base, significantly boosting accuracy across a range of vision-language recognition tasks. Notably, our approach demonstrates a significant improvement in performance on 5 fine-grained visual recognition benchmarks, 11 few-shot image recognition datasets, and the 2 object detection datasets under the zero-shot recognition setting.
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+<!--     Paper video. -->
+<!--     <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/UAUJNFJSbiI?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+
+<section class="section"  style="background-color:#efeff081" id="Highlight">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-six-fifths">
+            <h2 class="title is-3">🔥Highlight</h2>
+            <div class="content has-text-justified">
+              <p style="font-size: 15px;">
+<!--                 <ul>
+				  <li><b>Alpha-CLIP in Image Recognition.</b> 
+Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 accuracy for the zero-shot ImageNet classification task. This <span style="color: #997300;">enhanced region-based recognition </span>is valuable for tasks like Referring Expression Comprehension(REC) and serves as data engine for Open Vocabulary Detection(OVD).</li>
+				  <li><b>Serving as vision backbone in MLLM.</b> In conjunction with a large language model, Alpha-CLIP becomes capable of facilitating <span style="color: #997300;"> region level captioning and VQA</span> within a MLLM framework(e.g. BLIP-2, LLaVA). This integration significantly mitigates the occurrences of hallucinations and diminishes model bias, while also empowers region-focused new tasks. </li>
+				  <li><b>Alpha-CLIP in 2D generation.</b> When integrated with a diffusion model, Alpha-CLIP enhances the controllability of BLIP-Diffusion in image variation tasks. In addition, it enables the extraction of subjects from <span style="color: #997300;"> complex images for subject-driven generation</span>, surmounting an obstacle encountered when deploying BLIP-Diffusion with the original CLIP, which only supports single subjects in simplistic images. </li>
+				  <li><b>Alpha-CLIP in 3D generation.</b> In addition to the capabilities in 2D generation, Alpha-CLIP exhibits proficiency in 3D generation as well. It can be effectively deployed in conjunction with a diffusion model, such as Point-E, to <span style="color: #997300;"> enhance the quality of 3D object generation</span>. Additionally, it can be utilized with NeRF, exemplified by PureCLIPNeRF, to optimize the creation of superior 3D objects. </li>
+				</ul> -->
+                <ul>
+				  <li><b>In-depth Observation.</b> We conduct an in-depth analysis of the strengths and weaknesses of VLMs and MLLMs in processing fine-grained datasets.</li>
+			          <li><b>Plug-and-Play.</b> Our RAR can be seamlessly integrated into various MLLMs in a plug-and-play manner.</li>
+				  <li><b>RAR in Classification.</b> In  few-shot image recognition, our approach boosts the top-1 accuracy from 57.0 to 63.2 (%) on the 4-shot setting, and from 63.0 to 69.8 (%) on the 8-shot setting.</li>
+				  <li><b>RAR in Detection.</b> In zero-shot object recognition, our approach yielded an 8.4 (%) point increase over the CLIP baseline and a 6.4 (%) enhancement relative to RegionCLIP</li>
+				</ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+</section><br>
+
+<section class="section" id="RAR System Overview">
+   <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3"> RAR System Overview</h2>
+        </div>
+	    </div>
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered">
+	          <div class="column is-full-width">
+	            <div class="content has-text-justified">
+	              <p>
+	               We propose augmenting standard MLLMs with our RAR, a retrieving-and-ranking augmented technique. Our RAR enables models to dynamically incorporate external knowledge into the processing and generation workflows. By augmenting MLLMs with external knowledge sources, we address challenges related to language ambiguity, synonym handling, and the limitations imposed by limited context windows when dealing with vast vocabularies. Our method uses the inherent strength of MLLMs in generalizing from existing knowledge while addressing their limitations in visual recognition. We design a multimodal retriever that extracts the image or text embeddings and stores embeddings in an external memory M. For the inference stage of downstream recognition tasks, we retrieve top-k categories from the memory and use MLLMs to refine the retrieved results as the final prediction through ranking.
+	                <centering>
+	                  <div style="text-align: center;">
+	                    <img id="pipeline" width="100%" src="static/images/pipeline_rar.png">     
+	                  </div> 
+                       </p>
+		       <p>
+	               Here，we showcase the dataset utilized in our RAR testing, featuring an extensive array of fine-grained classification datasets alongside detection datasets enriched with a vast vocabulary.
+			<centering>
+	                  <div style="text-align: center;">
+	                    <img id="dataset" width="100%" src="static/images/dataset_rar.png">     
+	                  </div> 
+                       </p>
+            </div>
+            </b></font>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<section class="section" id="RAR">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3"> RAR in Few-Shot Image Recognition</h2>
+        </div>
+	    </div>
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered">
+	          <div class="column is-full-width">
+	            <div class="content has-text-justified">
+	              <p>
+			We employ our RAR in image classification. MLLMs, when integrated with retrieval capabilities, demonstrate impressive performance across various classification tasks, including those involving fine-grained datasets. The figure below illustrates one of our case studies.
+	                <centering>
+	                  <div style="text-align: center;">
+	                    <img id="teaser" width="100%" src="static/images/prompt_rar.png">     
+	                  </div>
+	              </p>
+	            </div>
+	            </b></font><br>
+			<p> Our results are as follows. Compared to the CLIP initial retrieval results(top row) , our RAR (third row) with ranking facilitates a notable increase in classification accuracy. Additionally, we observe that LLaVA1.5 + finetuning (second row) baseline underperforms in datasets with large vocabularies such as ImageNet due to the constraint of LLMs’ context window.</p>
+<!-- 			<div style="text-align: center;">
+				<table border="1" cellspacing="0" style="width: 92%; border-collapse: collapse; text-align: center; margin: 0 auto;">
+				<style>
+					td {
+					  text-align: center; /* 居中水平 */
+					  vertical-align: middle; /* 居中垂直 */
+					}
+				  </style>
+					<caption><strong>Zero-shot classification on ImageNet-S with different alpha map levels.</strong> Alpha-CLIP is comparable to the original CLIP when the foreground mask is not available, and further boosts the performance with rectangular box or mask alpha maps.</caption>
+					<thead>
+						<tr>
+							<th rowspan="1">Model</th>
+							<th rowspan="1">Alpha Map</th>
+							<th>Top-1</th>
+							<th>Top-5</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>CLIP</td>
+							<td>-</td>
+							<td>73.48</td>
+							<td>91.60</td>
+						</tr>
+						<tr>
+							<td rowspan="3"><br>Alpha-CLIP</td>
+							<td style="background-color: #e6e6ff;">whole image</td>
+							<td style="background-color: #e6e6ff;">73.37</td>
+							<td style="background-color: #e6e6ff;">91.75</td>
+						</tr>
+						<tr style="background-color: #ccccff;">
+							<td>rectangular box</td>
+							<td>75.62</td>
+							<td>93.34</td>
+						</tr>
+						<tr style="background-color: #b3b3ff;">
+							<td>mask</td>
+							<td>77.41</td>
+							<td>94.45</td>
+						</tr>
+					</tbody>
+				</table>
+          </div> -->
+	<div style="text-align: center;">
+	    <img id="teaser" width="100%" src="static/images/few_shot_rar.png">     
+	  </div>
+        </div>
+      </div>
+    </section>
+
+<section class="section" id="RAR">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3"> RAR in Zero-Shot Object Recognition</h2>
+        </div>
+	    </div>
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered">
+	          <div class="column is-full-width">
+	            <div class="content has-text-justified">
+	              <p>
+	               We extended our multimodal retriever to zero-shot recognition on object detection datasets such as LVIS and V3Det. Compared to the classification datasets, we apply the additional pre-processing techniques such as cropping and resizing to extract the image embeddings. Our improved detection pipeline is illustrated as follows:
+	                <centering>
+	                  <div style="text-align: center;">
+	                    <img id="mllm" width="100%" src="static/images/detection_rar.png">     
+	                  </div>
+	              </p>
+	            </div> <br>
+			<!--      results-->
+			<p> Given the pre-existing object proposals such as ground-truth box annotations, the zero-shot object recognition task measures the model’s capability of aligning regions with textual class descriptions. We select two representative models CLIP and RegionCLIP and report their performances as the baseline results. The figure on the left displays the LVIS test results, while the figure on the right presents the test results of V3Det.</p>
+<!-- 			<div style="display: flex; justify-content: center;">
+			    <div style="flex: 1; text-align: center;">
+			        <img id="image1" width="50%" src="detection1_rar.png">
+			    </div>
+			    <div style="flex: 1; text-align: center;">
+			        <img id="image2" width="50%" src="detection2_rar.png">
+			    </div>
+			</div> -->
+			   <centering>
+	                  <div style="text-align: center;">
+	                    <img id="detection1" width="45%" src="static/images/detection1_rar.png">   
+			    <img id="detection2" width="45%" src="static/images/detection2_rar.png"> 
+	                  </div>
+		   <p> The figure below illustrates two of our detection case studies.</p>
+		     <div style="text-align: center;">
+	                    <img id="detection2" width="100%" src="static/images/example_rar.png">     
+	            </div>
+				 
+<!-- 			<div style="text-align: center;">
+				<table border="1" cellspacing="0" style="width: 92%; border-collapse: collapse; text-align: center; margin: 0 auto;">
+					<caption><strong>Performance of Alpha-CLIP in Region-Level Captioning</strong>: We report METEOR and CIDEr metrics on Visual Genome and refCOCOg Datasets, demonstrating competitive outcomes.</caption>
+					<thead>
+						<tr>
+							<th rowspan="2">Model</th>
+							<th colspan="2">refCOCOg</th>
+							<th colspan="2">Visual Genome</th>
+						</tr>
+						<tr>
+							<th>METEOR</th>
+							<th>CIDEr</th>
+							<th>METEOR</th>
+							<th>CIDEr</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>GRIT</td>
+							<td>15.2</td>
+							<td>71.6</td>
+							<td>17.1</td>
+							<td>142</td>
+						</tr>
+						<tr>
+							<td>Kosmos-2</td>
+							<td>14.1</td>
+							<td>62.3</td>
+							<td>-</td>
+							<td>-</td>
+						</tr>
+						<tr>
+							<td>GPT4RoI</td>
+							<td>-</td>
+							<td>-</td>
+							<td>17.4</td>
+							<td>145.2</td>
+						</tr>
+						<tr>
+							<td>GLaMM</td>
+							<td>16.2</td>
+							<td>105.0</td>
+							<td>18.6</td>
+							<td>157.8</td>
+						</tr>
+						<tr style="background-color: #e6e6ff;">
+							<td>Alpha-CLIP+LLaVA</td>
+							<th>16.7</th>
+							<th>109.2</th>
+							<th>18.9</th>
+							<th>160.3</th>
+						</tr>
+					</tbody>
+				</table>
+			</div> -->
+            </b></font>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<section class="section" id="RAR">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3"> RAR in Fine-Grained Visual Recognition </h2>
+        </div>
+      </div>
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <div class="content has-text-justified">
+              <p>
+                We evaluate our RAR on the fine-grained visual recognition setting defined in previous work FineR. We use only 3 unlabelled images per category to build our
+memory M for retrieving. We follow FineR to select four representative methods as our baselines to compare with: WordNet+CLIP, BLIP-2, CaSED, and FineR. Averaged results over 5 datasets are shown below, and our
+RAR achieves the top performance on both the cACC (58.5%) and sACC (65.3%) metrics.
+                <centering>
+                  <div style="text-align: center;">
+                    <img id="teaser" width="100%" src="static/images/result1_rar.png">     
+                  </div>
+              </p>
+            </div>
+            </b></font>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<!-- <section class="section" id="Alpha-CLIP pipeline">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3"> Alpha-CLIP Pipeline</h2>
+        </div>
+      </div>
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <div class="content has-text-justified">
+              <p>
+                The pipeline of our <b>data generation method</b> and <b>model architecture</b>. (a) Our method generates millions of RGBA region-text pairs. (b) Alpha-CLIP modifies the CLIP image encoder to take an additional alpha channel along with RGB. We first generate millions of RGBA region-text data from grounding and classification datasets. Using our generated data, we then train our Alpha-CLIP with additional Alpha-channel inputs.
+                <centering>
+                  <div style="text-align: center;">
+                    <img id="teaser" width="100%" src="static/images/pipeline.png">     
+                  </div>
+              </p>
+            </div>
+            </b></font>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+
+<!-- <section class="section" id="Alpha-CLIP Attn">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3"> Alpha-CLIP Attention Map Visualization</h2>
+        </div>
+      </div>
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <div class="content has-text-justified">
+              <p>
+			  	We check the attention map of [CLS] token in the last transformer block in the vision encoder.
+Each first line per four is from original CLIP and the other three lines are from Alpha-CLIP with user-defined focus regions marked
+in red. This visualization verifies that Alpha-CLIP <b>pays more attention to the area to focus on</b> and more importantly, with <b>no damage to the 2D location information</b> preserved in the feature location of the original CLIP.
+                <centering>
+                  <div style="text-align: center;">
+                    <img id="teaser" width="100%" src="static/images/attn.png">     
+                  </div>
+              </p>
+            </div>
+            </b></font>
+			</div>
+			
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+
+
+<!-- <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>
+          @misc{sun2023alphaclip,
+            title={Alpha-CLIP: A CLIP Model Focusing on Wherever You Want}, 
+            author={Zeyi Sun and Ye Fang and Tong Wu and Pan Zhang and Yuhang Zang and Shu Kong and Yuanjun Xiong and Dahua Lin and Jiaqi Wang},
+            year={2023},
+            eprint={2312.03818},
+            archivePrefix={arXiv},
+            primaryClass={cs.CV}
+          }
+      </code></pre>
+      </div>
+    </section> -->
+
+<section class="section" id="Interesting Observation">
+   <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3"> Interesting Observation</h2>
+        </div>
+	    </div>
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered">
+	          <div class="column is-full-width">
+	            <div class="content has-text-justified">
+	              <p>
+	               In the field of image classification, especially when facing the challenges of fine-grained image categorization, can
+MLLMs prove competent and effective? To further explore the potential of
+MLLMs in image classification tasks, we employed the GPT-4V model to test selected images from our fine-grained datasets.</p>
+			<centering>
+	                  <div style="text-align: center;">
+	                    <img id="teaser" width="100%" src="static/images/GPT4_rar.png">     
+	                  </div><br>
+			<p>GPT-4V identifies key characteristics such as “coupe” (a two-door car) and “long fuselage” (long body of an
+aircraft), which are crucial for distinguishing between similar categories.</p>
+				
+              <p>To further explore the potential of RAR, we expanded the memory size to include all images from the training set
+stored in memory. We then compared the performance of RAR under this setup with that of GPT-4V across multiple image classification datasets. The results
+are presented in the following table. The results show that, regardless of whether the base model is LLaVa, Intern-IXC2, or Qwen-VL, RAR significantly outperforms GPT-4V in
+terms of accuracy. It is observed that even 7B MLLMs, when integrated into the RAR pipeline, far surpass the classification capabilities
+of GPT-4V across multiple image classification datasets.</p>
+	<centering>
+	  <div style="text-align: center;">
+	    <img id="teaser" width="100%" src="static/images/GPT4re_rar.png">     
+	  </div><br>
+            </div>
+            </b></font>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="section" id="Ablation Study">
+   <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3"> Ablation Study</h2>
+        </div>
+	    </div>
+	      <div class="container is-max-desktop">
+	        <div class="columns is-centered">
+	          <div class="column is-full-width">
+	            <div class="content has-text-justified">
+	              <p>
+			In the experiments conducted for our
+paper, we selected the top 5 retrieved results for ranking. To test the scalability
+of this method, we conducted a new experiment using the top 10 retrieved results,
+ranking these ten categories and then assessing the accuracy of the top 5. In this
+experiment, we utilized a 4-shot setting, the result is shown below.
+	               <centering>
+	                  <div style="text-align: center;">
+	                    <img id="teaser" width="100%" src="static/images/top5_rar.png">     
+	                  </div><br>
+              </p>
+            </div>
+            </b></font>
+          </div>
+        </div>
+      </div>
+    </section>
+
+				 
+				 
+<footer class="footer">
+  <div class="container">
+  	<!-- link
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2210.04150.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/facebookresearch/ov-seg" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+	-->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+<!--           <p>
+            Thanks to <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> and <a href="https://jerryxu.net/GroupViT">GroupViT</a>.
+          </p> -->
+        </div>
+<!-- 	<div style="width: 30%; text-align: center;">
+              <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=o6auWXiSftSiyKivQFuM8x7SJSr5FX15LEUTL1Uy3ic&cl=ffffff&w=a"></script>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
