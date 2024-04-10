@@ -219,7 +219,7 @@
       </div>
 </section><br>
 
-<section class="section" id="RAR System Overview">
+<section class="section" id="Soda System Overview">
    <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
@@ -252,273 +252,7 @@
     </section>
 
 
-<section class="section" id="RAR">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-six-fifths">
-          <h2 class="title is-3"> RAR in Few-Shot Image Recognition</h2>
-        </div>
-	    </div>
-	      <div class="container is-max-desktop">
-	        <div class="columns is-centered">
-	          <div class="column is-full-width">
-	            <div class="content has-text-justified">
-	              <p>
-			We employ our RAR in image classification. MLLMs, when integrated with retrieval capabilities, demonstrate impressive performance across various classification tasks, including those involving fine-grained datasets. The figure below illustrates one of our case studies.
-	                <centering>
-	                  <div style="text-align: center;">
-	                    <img id="teaser" width="100%" src="static/images/prompt_rar.png">     
-	                  </div>
-	              </p>
-	            </div>
-	            </b></font><br>
-			<p> Our results are as follows. Compared to the CLIP initial retrieval results(top row) , our RAR (third row) with ranking facilitates a notable increase in classification accuracy. Additionally, we observe that LLaVA1.5 + finetuning (second row) baseline underperforms in datasets with large vocabularies such as ImageNet due to the constraint of LLMs’ context window.</p>
-<!-- 			<div style="text-align: center;">
-				<table border="1" cellspacing="0" style="width: 92%; border-collapse: collapse; text-align: center; margin: 0 auto;">
-				<style>
-					td {
-					  text-align: center; /* 居中水平 */
-					  vertical-align: middle; /* 居中垂直 */
-					}
-				  </style>
-					<caption><strong>Zero-shot classification on ImageNet-S with different alpha map levels.</strong> Alpha-CLIP is comparable to the original CLIP when the foreground mask is not available, and further boosts the performance with rectangular box or mask alpha maps.</caption>
-					<thead>
-						<tr>
-							<th rowspan="1">Model</th>
-							<th rowspan="1">Alpha Map</th>
-							<th>Top-1</th>
-							<th>Top-5</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>CLIP</td>
-							<td>-</td>
-							<td>73.48</td>
-							<td>91.60</td>
-						</tr>
-						<tr>
-							<td rowspan="3"><br>Alpha-CLIP</td>
-							<td style="background-color: #e6e6ff;">whole image</td>
-							<td style="background-color: #e6e6ff;">73.37</td>
-							<td style="background-color: #e6e6ff;">91.75</td>
-						</tr>
-						<tr style="background-color: #ccccff;">
-							<td>rectangular box</td>
-							<td>75.62</td>
-							<td>93.34</td>
-						</tr>
-						<tr style="background-color: #b3b3ff;">
-							<td>mask</td>
-							<td>77.41</td>
-							<td>94.45</td>
-						</tr>
-					</tbody>
-				</table>
-          </div> -->
-	<div style="text-align: center;">
-	    <img id="teaser" width="100%" src="static/images/few_shot_rar.png">     
-	  </div>
-        </div>
-      </div>
-    </section>
 
-<section class="section" id="RAR">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-six-fifths">
-          <h2 class="title is-3"> RAR in Zero-Shot Object Recognition</h2>
-        </div>
-	    </div>
-	      <div class="container is-max-desktop">
-	        <div class="columns is-centered">
-	          <div class="column is-full-width">
-	            <div class="content has-text-justified">
-	              <p>
-	               We extended our multimodal retriever to zero-shot recognition on object detection datasets such as LVIS and V3Det. Compared to the classification datasets, we apply the additional pre-processing techniques such as cropping and resizing to extract the image embeddings. Our improved detection pipeline is illustrated as follows:
-	                <centering>
-	                  <div style="text-align: center;">
-	                    <img id="mllm" width="100%" src="static/images/detection_rar.png">     
-	                  </div>
-	              </p>
-	            </div> <br>
-			<!--      results-->
-			<p> Given the pre-existing object proposals such as ground-truth box annotations, the zero-shot object recognition task measures the model’s capability of aligning regions with textual class descriptions. We select two representative models CLIP and RegionCLIP and report their performances as the baseline results. The figure on the left displays the LVIS test results, while the figure on the right presents the test results of V3Det.</p>
-<!-- 			<div style="display: flex; justify-content: center;">
-			    <div style="flex: 1; text-align: center;">
-			        <img id="image1" width="50%" src="detection1_rar.png">
-			    </div>
-			    <div style="flex: 1; text-align: center;">
-			        <img id="image2" width="50%" src="detection2_rar.png">
-			    </div>
-			</div> -->
-			   <centering>
-	                  <div style="text-align: center;">
-	                    <img id="detection1" width="45%" src="static/images/detection1_rar.png">   
-			    <img id="detection2" width="45%" src="static/images/detection2_rar.png"> 
-	                  </div>
-		   <p> The figure below illustrates two of our detection case studies.</p>
-		     <div style="text-align: center;">
-	                    <img id="detection2" width="100%" src="static/images/example_rar.png">     
-	            </div>
-				 
-<!-- 			<div style="text-align: center;">
-				<table border="1" cellspacing="0" style="width: 92%; border-collapse: collapse; text-align: center; margin: 0 auto;">
-					<caption><strong>Performance of Alpha-CLIP in Region-Level Captioning</strong>: We report METEOR and CIDEr metrics on Visual Genome and refCOCOg Datasets, demonstrating competitive outcomes.</caption>
-					<thead>
-						<tr>
-							<th rowspan="2">Model</th>
-							<th colspan="2">refCOCOg</th>
-							<th colspan="2">Visual Genome</th>
-						</tr>
-						<tr>
-							<th>METEOR</th>
-							<th>CIDEr</th>
-							<th>METEOR</th>
-							<th>CIDEr</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>GRIT</td>
-							<td>15.2</td>
-							<td>71.6</td>
-							<td>17.1</td>
-							<td>142</td>
-						</tr>
-						<tr>
-							<td>Kosmos-2</td>
-							<td>14.1</td>
-							<td>62.3</td>
-							<td>-</td>
-							<td>-</td>
-						</tr>
-						<tr>
-							<td>GPT4RoI</td>
-							<td>-</td>
-							<td>-</td>
-							<td>17.4</td>
-							<td>145.2</td>
-						</tr>
-						<tr>
-							<td>GLaMM</td>
-							<td>16.2</td>
-							<td>105.0</td>
-							<td>18.6</td>
-							<td>157.8</td>
-						</tr>
-						<tr style="background-color: #e6e6ff;">
-							<td>Alpha-CLIP+LLaVA</td>
-							<th>16.7</th>
-							<th>109.2</th>
-							<th>18.9</th>
-							<th>160.3</th>
-						</tr>
-					</tbody>
-				</table>
-			</div> -->
-            </b></font>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-<section class="section" id="RAR">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-six-fifths">
-          <h2 class="title is-3"> RAR in Fine-Grained Visual Recognition </h2>
-        </div>
-      </div>
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column is-full-width">
-            <div class="content has-text-justified">
-              <p>
-                We evaluate our RAR on the fine-grained visual recognition setting defined in previous work FineR. We use only 3 unlabelled images per category to build our
-memory M for retrieving. We follow FineR to select four representative methods as our baselines to compare with: WordNet+CLIP, BLIP-2, CaSED, and FineR. Averaged results over 5 datasets are shown below, and our
-RAR achieves the top performance on both the cACC (58.5%) and sACC (65.3%) metrics.
-                <centering>
-                  <div style="text-align: center;">
-                    <img id="teaser" width="100%" src="static/images/result1_rar.png">     
-                  </div>
-              </p>
-            </div>
-            </b></font>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-<!-- <section class="section" id="Alpha-CLIP pipeline">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-six-fifths">
-          <h2 class="title is-3"> Alpha-CLIP Pipeline</h2>
-        </div>
-      </div>
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column is-full-width">
-            <div class="content has-text-justified">
-              <p>
-                The pipeline of our <b>data generation method</b> and <b>model architecture</b>. (a) Our method generates millions of RGBA region-text pairs. (b) Alpha-CLIP modifies the CLIP image encoder to take an additional alpha channel along with RGB. We first generate millions of RGBA region-text data from grounding and classification datasets. Using our generated data, we then train our Alpha-CLIP with additional Alpha-channel inputs.
-                <centering>
-                  <div style="text-align: center;">
-                    <img id="teaser" width="100%" src="static/images/pipeline.png">     
-                  </div>
-              </p>
-            </div>
-            </b></font>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-
-<!-- <section class="section" id="Alpha-CLIP Attn">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-six-fifths">
-          <h2 class="title is-3"> Alpha-CLIP Attention Map Visualization</h2>
-        </div>
-      </div>
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column is-full-width">
-            <div class="content has-text-justified">
-              <p>
-			  	We check the attention map of [CLS] token in the last transformer block in the vision encoder.
-Each first line per four is from original CLIP and the other three lines are from Alpha-CLIP with user-defined focus regions marked
-in red. This visualization verifies that Alpha-CLIP <b>pays more attention to the area to focus on</b> and more importantly, with <b>no damage to the 2D location information</b> preserved in the feature location of the original CLIP.
-                <centering>
-                  <div style="text-align: center;">
-                    <img id="teaser" width="100%" src="static/images/attn.png">     
-                  </div>
-              </p>
-            </div>
-            </b></font>
-			</div>
-			
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-
-
-<!-- <section class="section" id="BibTeX">
-      <div class="container is-max-desktop content">
-        <h2 class="title">BibTeX</h2>
-        <pre><code>
-          @misc{sun2023alphaclip,
-            title={Alpha-CLIP: A CLIP Model Focusing on Wherever You Want}, 
-            author={Zeyi Sun and Ye Fang and Tong Wu and Pan Zhang and Yuhang Zang and Shu Kong and Yuanjun Xiong and Dahua Lin and Jiaqi Wang},
-            year={2023},
-            eprint={2312.03818},
-            archivePrefix={arXiv},
-            primaryClass={cs.CV}
-          }
-      </code></pre>
-      </div>
-    </section> -->
 
 <section class="section" id="Interesting Observation">
    <div class="container is-max-desktop">
@@ -558,50 +292,10 @@ of GPT-4V across multiple image classification datasets.</p>
       </div>
     </section>
 
-<section class="section" id="Ablation Study">
-   <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-six-fifths">
-          <h2 class="title is-3"> Ablation Study</h2>
-        </div>
-	    </div>
-	      <div class="container is-max-desktop">
-	        <div class="columns is-centered">
-	          <div class="column is-full-width">
-	            <div class="content has-text-justified">
-	              <p>
-			In the experiments conducted for our
-paper, we selected the top 5 retrieved results for ranking. To test the scalability
-of this method, we conducted a new experiment using the top 10 retrieved results,
-ranking these ten categories and then assessing the accuracy of the top 5. In this
-experiment, we utilized a 4-shot setting, the result is shown below.
-	               <centering>
-	                  <div style="text-align: center;">
-	                    <img id="teaser" width="100%" src="static/images/top5_rar.png">     
-	                  </div><br>
-              </p>
-            </div>
-            </b></font>
-          </div>
-        </div>
-      </div>
-    </section>
-
 				 
 				 
 <footer class="footer">
   <div class="container">
-  	<!-- link
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="https://arxiv.org/pdf/2210.04150.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/facebookresearch/ov-seg" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-	-->
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
@@ -610,13 +304,7 @@ experiment, we utilized a 4-shot setting, the result is shown below.
                                                 href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
-<!--           <p>
-            Thanks to <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> and <a href="https://jerryxu.net/GroupViT">GroupViT</a>.
-          </p> -->
         </div>
-<!-- 	<div style="width: 30%; text-align: center;">
-              <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=o6auWXiSftSiyKivQFuM8x7SJSr5FX15LEUTL1Uy3ic&cl=ffffff&w=a"></script>
-        </div> -->
       </div>
     </div>
   </div>
