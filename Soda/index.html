@@ -129,7 +129,7 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title"><img id="logo" width="5%" src="static/images/logo_cat.jpg"> <span class="rainbow-text">Soda</span>: Search, Organize, Discovery Anything</h1>
  	  <div class="is-size-5 publication-authors"> <span class="author-block"> <a href="https://github.com/Liuziyu77">Ziyu Liu</a><sup>*1,4</sup>,</span> <span class="author-block"> <a href="https://github.com/SunzeY">*Zeyi Sun</a><sup>*2,4</sup>,</span> <span class="author-block"> <a href="https://yuhangzang.github.io/">Yuhang Zang</a><sup>4</sup>, </span> <span class="author-block">  <a href="https://scholar.google.be/citations?user=41KAd6AAAAAJ&hl=en">Wei Li</a><sup>6</sup>, </span> <span class="author-block"><a href="https://panzhang0212.github.io/">Pan Zhang</a><sup>4</sup>, </span> <span class="author-block"> <a href="https://lightdxy.github.io/">Xiaoyi Dong</a><sup>4</sup>, </div> <div class="is-size-5 publication-authors"> </span> <span class="author-block"> <a href="http://yjxiong.me/">Yuanjun Xiong</a><sup>5</sup>, </span> <span class="author-block"> <a href="http://dahua.site/">Dahua Lin</a><sup>3,4</sup>, </span> <span class="author-block"> <a href="https://myownskyw7.github.io/">Jiaqi Wang</a><sup>&dagger;4</sup> </span> </div>
-          <div class="is-size-5 publication-authors"> <span class="author-block"><sup>1</sup>Wuhan University,</span> <span class="author-block"><sup>2</sup>Shanghai Jiao Tong University,</span>  <span class="author-block"><sup>3</sup>The Chinese University of Hong Kong,</span><br> <span class="author-block"><sup>4</sup>Shanghai AI Laboratory,</span> -->
+          <div class="is-size-5 publication-authors"> <span class="author-block"><sup>1</sup>Wuhan University,</span> <span class="author-block"><sup>2</sup>Shanghai Jiao Tong University,</span>  <span class="author-block"><sup>3</sup>The Chinese University of Hong Kong,</span><br> <span class="author-block"><sup>4</sup>Shanghai AI Laboratory,</span>
               <span class="author-block"><sup>5</sup>MThreads, Inc.,</span> <span class="author-block"><sup>6</sup>Nanyang Technological University</span> </div>
 		  <div class="is-size-6 publication-authors">
               <span class="author-block"><sup>*</sup>Equally contributing first authors. <sup>&dagger;</sup>Corresponding authors.</span>
@@ -137,10 +137,10 @@
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link. -->
-              <span class="link-block"> <a href="https://github.com/Liuziyu77/RAR"
-                   class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="ai ai-arxiv"></i> </span> <span>arXiv</span> </a> </span>
+              <span class="link-block"> <a href="https://opensoda.net"
+                   class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="ai ai-arxiv"></i> </span> <span>Website</span> </a> </span>
               <!-- Code Link. -->
-              <span class="link-block"> <a href="https://github.com/Liuziyu77/RAR"
+              <span class="link-block"> <a href="https://github.com/Liuziyu77/Soda"
                    class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="fab fa-github"></i> </span> <span>Code</span> </a> </span>
               <!-- Dataset Link. -->
              <!--  <span class="link-block"> <a href="https://huggingface.co/spaces/Zery/Alpha-CLIP_LLaVA-1.5" -->
@@ -155,7 +155,7 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
+    <!-- Soda Introduction -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
 	<div style="text-align: center;">
@@ -175,11 +175,14 @@
 			}
 		  </style>
           <p>
-            CLIP (Contrastive Language–Image Pre-training) uses contrastive learning from noise image-text pairs to excel at recognizing a wide array of candidates, yet its focus on broad associations hinders the precision in distinguishing subtle differences among fine-grained items. Conversely, Multimodal Large Language Models (MLLMs) excel at classifying fine-grained categories, thanks to their substantial knowledge from pre-training on web-level corpora. However, the performance of MLLMs declines with an increase in category numbers, primarily due to growing complexity and constraints of limited context window size.
-          </p>
+           With the advent and extensive deployment of Large Language Models (LLMs), these sophisticated systems have showcased immense potential in a variety of application domains. Nevertheless, even highly advanced models such as GPT-4 are not without their limitations; they aren't omniscient and are susceptible to the so-called 'hallucination problem'.
+	  </p>
+	<p>
+	   Acknowledging these constraints, we have innovated <strong>SODA (Search, Organize, Discover Anything) - a cutting-edge information integration Agent</strong>, propelled by the power of large language models(LLMs). SODA Agent leverages an LLM at its core for processing information, adeptly sourcing data from a multitude of channels in response to user queries. This enables it to provide nuanced and comprehensive answers. Through SODA, users gain access to a sophisticated web search mechanism that fetches pertinent information from the internet. This integrates seamlessly with the innate knowledge of the LLM and external sources, ensuring answers are not only accurate but also reliable. Furthermore, SODA empowers users to upload personal files, facilitating the creation of a private, secure, and robust local knowledge database. This feature allows LLMs to assimilate new information effortlessly, eliminating the need for pre-training or fine-tuning, and to utilize this knowledge effectively in response to queries.
+	</p>
           <p>
-            To synergize the strengths of both approaches and enhance the few-shot/zero-shot recognition abilities for datasets characterized by extensive and fine-grained vocabularies, this paper introduces RAR, a Retrieving And Ranking augmented method for MLLMs. We initially establish a multi-modal retriever based on CLIP to create and store explicit memory for different categories beyond the immediate context window. During inference, RAR retrieves the top-k similar results from the memory and uses MLLMs to rank and make the final predictions. Our proposed approach not only addresses the inherent limitations in fine-grained recognition but also preserves the model’s comprehensive knowledge base, significantly boosting accuracy across a range of vision-language recognition tasks. Notably, our approach demonstrates a significant improvement in performance on 5 fine-grained visual recognition benchmarks, 11 few-shot image recognition datasets, and the 2 object detection datasets under the zero-shot recognition setting.
-      </div>
+            Overall, SODA is envisioned as a <strong>secure</strong>, <strong>dependable</strong>, and <strong>intelligently sourced</strong> agent tool. It's strategically designed to enable users to proficiently handle and interpret information gleaned from expansive models, the web, and your own database.
+	</div>
     </div>
     <!--/ Abstract. -->
 
@@ -203,19 +206,12 @@
             <h2 class="title is-3">🔥Highlight</h2>
             <div class="content has-text-justified">
               <p style="font-size: 15px;">
-<!--                 <ul>
-				  <li><b>Alpha-CLIP in Image Recognition.</b> 
-Focusing on a specified ground-truth region leads to a 4.1% increase in top-1 accuracy for the zero-shot ImageNet classification task. This <span style="color: #997300;">enhanced region-based recognition </span>is valuable for tasks like Referring Expression Comprehension(REC) and serves as data engine for Open Vocabulary Detection(OVD).</li>
-				  <li><b>Serving as vision backbone in MLLM.</b> In conjunction with a large language model, Alpha-CLIP becomes capable of facilitating <span style="color: #997300;"> region level captioning and VQA</span> within a MLLM framework(e.g. BLIP-2, LLaVA). This integration significantly mitigates the occurrences of hallucinations and diminishes model bias, while also empowers region-focused new tasks. </li>
-				  <li><b>Alpha-CLIP in 2D generation.</b> When integrated with a diffusion model, Alpha-CLIP enhances the controllability of BLIP-Diffusion in image variation tasks. In addition, it enables the extraction of subjects from <span style="color: #997300;"> complex images for subject-driven generation</span>, surmounting an obstacle encountered when deploying BLIP-Diffusion with the original CLIP, which only supports single subjects in simplistic images. </li>
-				  <li><b>Alpha-CLIP in 3D generation.</b> In addition to the capabilities in 2D generation, Alpha-CLIP exhibits proficiency in 3D generation as well. It can be effectively deployed in conjunction with a diffusion model, such as Point-E, to <span style="color: #997300;"> enhance the quality of 3D object generation</span>. Additionally, it can be utilized with NeRF, exemplified by PureCLIPNeRF, to optimize the creation of superior 3D objects. </li>
-				</ul> -->
                 <ul>
-				  <li><b>In-depth Observation.</b> We conduct an in-depth analysis of the strengths and weaknesses of VLMs and MLLMs in processing fine-grained datasets.</li>
-			          <li><b>Plug-and-Play.</b> Our RAR can be seamlessly integrated into various MLLMs in a plug-and-play manner.</li>
-				  <li><b>RAR in Classification.</b> In  few-shot image recognition, our approach boosts the top-1 accuracy from 57.0 to 63.2 (%) on the 4-shot setting, and from 63.0 to 69.8 (%) on the 8-shot setting.</li>
-				  <li><b>RAR in Detection.</b> In zero-shot object recognition, our approach yielded an 8.4 (%) point increase over the CLIP baseline and a 6.4 (%) enhancement relative to RegionCLIP</li>
-				</ul>
+				  <li><b>New technology framework.</b> We have developed an LLM-driven information integration Agent, which provides a technical framework for retrieval argumented generation(RAG) and tool use directions for AI Agents.</li>
+			          <li><b>Good compatibility.</b> SODA is capable of easily swapping components, utilizing various search engines or vector databases, and exhibits good compatibility.</li>
+				  <li><b>Reliable&traceable</b> SODA effectively addresses partial hallucination issues of LLM, providing reliable and accurate answers with traceable information sources.</li>
+				  <li><b>Data privacy.</b> SODA supports local databases, allowing the model to acquire new knowledge without pretraining or finetuning, while effectively protecting user data privacy.</li>
+		</ul>
               </p>
             </div>
           </div>
