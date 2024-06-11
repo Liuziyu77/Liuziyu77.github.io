@@ -42,9 +42,10 @@ Ziyu Liu\*, Zeyi Sun\*, Yuhang Zang, Wei Li, Pan Zhang, Xiaoyi Dong, Yuanjun Xio
 
 
 # 🎖 Honors and Awards
-- *2023.07*, Meritorious award, Mathematical Contest in Modeling and Interdisciplinary Contest in Modeling (MCM/ICM), COMAP.
+- *2024.06*, Excellent Bachelor's Thesis，Outstanding Undergraduate Graduate of WHU.
+- *2023.07*, Meritorious Award, Mathematical Contest in Modeling and Interdisciplinary Contest in Modeling (MCM/ICM), COMAP.
 - *2022.05*, National Second Prize, China Undergraduate Mathematical Contest in Modeling(CUMCM), China Society for Industrial and Applied Mathematics(CSIAM).
-- *2022.05*, Finalist award, Mathematical Contest in Modeling and Interdisciplinary Contest in Modeling (MCM/ICM), COMAP.
+- *2022.05*, Finalist Award, Mathematical Contest in Modeling and Interdisciplinary Contest in Modeling (MCM/ICM), COMAP.
 
 # 📖 Educations
 - *2020.09 - 2024.06*, Undergraduate, Wuhan University. 
