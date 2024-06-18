@@ -24,6 +24,7 @@ My research interest includes multimodal large language models(MLLMs) and retrie
 
 
 # 🔥 News
+-[2024-06] We are organizing the Visual Perception via Learning in an Open World: The 4th Workshop on Open World Vision and the V3Det Challenge at CVPR 2024.
 
 
 # 📝 Selected Publications 
