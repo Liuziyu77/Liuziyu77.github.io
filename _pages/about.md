@@ -42,7 +42,8 @@ My research interest includes multimodal large language models(MLLMs) and retrie
 </div>
 </div>
 
-
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/V3Det_challenge.png' alt="MMDU" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
 [V3Det Challenge 2024 on Vast Vocabulary and Open Vocabulary Object Detection: Methods and Results](https://arxiv.org/abs/2406.11739)
 
 Jiaqi Wang, Yuhang Zang, Pan Zhang, Tao Chu, Yuhang Cao, Zeyi Sun, **Ziyu Liu**, Xiaoyi Dong, Tong Wu, Dahua Lin, Zeming Chen, Zhi Wang, Lingchen Meng, Wenhao Yao, Jianwei Yang, Sihong Wu, Zhineng Chen, Zuxuan Wu, Yu-Gang Jiang, Peixi Wu, Bosong Chai, Xuan Nie, Longquan Yan, Zeyu Wang, Qifan Zhou, Boning Wang, Jiaqi Huang, Zunnan Xu, Xiu Li, Kehong Yuan, Yanyan Zu, Jiayao Ha, Qiong Gao, Licheng Jiao
