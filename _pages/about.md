@@ -24,7 +24,7 @@ My research interest includes multimodal large language models(MLLMs) and retrie
 
 
 # 🔥 News
-- [2024-06-18] Our paper, "MMDU: A Multi-Turn Multi-Image Dialog Understanding Benchmark and Instruction-Tuning Dataset for LVLMs," has been rated as the Huggingface **#1 Paper of the Day**.
+- [2024-06-18] Our paper, "MMDU: A Multi-Turn Multi-Image Dialog Understanding Benchmark and Instruction-Tuning Dataset for LVLMs," has been rated as the Huggingface **"#1 Paper of the Day"**.
 - [2024-06] We are organizing the Visual Perception via Learning in an Open World: The 4th Workshop on Open World Vision and the V3Det Challenge at CVPR 2024.
 
 
