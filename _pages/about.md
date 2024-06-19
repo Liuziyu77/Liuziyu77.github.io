@@ -42,7 +42,7 @@ My research interest includes multimodal large language models(MLLMs) and retrie
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/V3Det_challenge.png' alt="MMDU" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/V3Det_challenge.png' alt="V3Det_challenge" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 [V3Det Challenge 2024 on Vast Vocabulary and Open Vocabulary Object Detection: Methods and Results](https://arxiv.org/abs/2406.11739)
 
