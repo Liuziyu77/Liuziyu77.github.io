@@ -356,10 +356,10 @@
     </section>
 
 
-<section class="section" id="Finetune with MMDU-45k">
+<section class="section" id="Single-Image Benchmarks Evaluation">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> Finetune with <span class="rainbow-text">MMDU-45k</span> </h2>
+          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO:</span> Single-Image Benchmarks Evaluation</h2>
         </div>
       </div>
       <div class="container is-max-desktop">
@@ -367,14 +367,16 @@
           <div class="column is-full-width">
             <div class="content has-text-justified">
               <p>
-                The model fine-tuned with <span class="rainbow-text">MMDU-45k</span> has shown significant improvements in multi-image recognition and long-text dialogue capabilities. As demonstrated in the following case, the fine-tuned InternLM-Xcomposer2 is able to provide richer responses and more accurate visual information compared to before.
-                <centering>
+                While MIA-DPO is effective in multi-image scenarios, we also report the performance on singleimage benchmarks. As shown in Tab. 2, MIA-DPO outperforms the LLaVA-v1.5 baseline and
+		DPO methods, including LLaVA-RLHF and HA-DPO, in average results across seven single-image
+		benchmarks. As for the InternLM-XC2.5 model, MIA-DPO achieves a 1.4% increase on MMStar
+		but performs slightly below baseline on average across all single-image benchmarks. The slight
+		degradation in InternLM-XC2.5’s single-image performance suggests that while the model benefits
+		greatly in multi-image scenarios, there may be a trade-off in optimizing for more complex, interleaved inputs. Overall, our findings highlight the robustness of our MIA-DPO, which not only
+		excels in improving multi-image performance but also preserves proficiency on single-image tasks.
+		Our MIA-DPO serves as a strong candidate for real-world applications requiring versatile multimodal abilities across both single and multiple image tasks.
                   <div style="text-align: center;">
-                    <img id="teaser" width="100%" src="static/images/case.png">
-                  </div>
-                    Additionally, the model fine-tuned with MMDU-45k has shown performance improvements on eight benchmarks, including MMBench, MMvet, and MMMU.                <centering>
-                  <div style="text-align: center;">
-                    <img id="teaser" width="100%" src="static/images/bm_results.png">
+                    <img id="teaser" width="105%" src="static/images/exp2.png">
                   </div>
               </p>
             </div>
@@ -384,10 +386,10 @@
       </div>
     </section>
 
-<section class="section" id="Results on MMDU">
+<section class="section" id="Ablation Study">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> Results on <span class="rainbow-text">MMDU</span> </h2>
+          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO:</span> Ablation Study</h2>
         </div>
       </div>
       <div class="container is-max-desktop">
@@ -395,10 +397,25 @@
           <div class="column is-full-width">
             <div class="content has-text-justified">
               <p>
-Our key findings are summarized as follows. (1) Our benchmark poses significant challenges to current LVLMs. Notably, even the advanced GPT-4o model achieves an average accuracy of only 70.2%, while open-source LVLMs achieve merely 42.8% or lower, indicating substantial room for improvement. (2) We observe a significant performance gap between closed-source LVLMs and open-source LVLMs. We speculate that this disparity arises from the scarcity of open-source instruction tuning data with multi-turn and multi-image capabilities, leading to limited improvement in open-source LVLMs. This inspired us to collect and release <span class="rainbow-text">MMDU-45k</span>, a valuable resource for the open-source community, to bridge this gap.
-                  <centering>
+		<strong>Ablation Studies on Post-Selection</strong> In our ablation study, we experimented with the postselection process for DPO data. As illustrated in Fig. 3, our post-selection process includes three
+		components: perplexity (ppl), text length, and edit distance. We conduct ablation studies to compare
+		the impact of whether to use the post-selection or not. In Tab. 3, the results show that while MIADPO without post-selection (row 1) still led to improvements across multiple multi-image benchmarks, its performance was consistently lower than that of MIA-DPO with post-selection (row 2).
+		Our findings highlight that post-selection effectively removes outlier and low-quality data, further
+		enhancing the overall quality of the DPO pair data and boosting model performance.<br>
+
+		<strong>Ablation Studies on Data Types</strong> In the process of constructing multi-image DPO data for MIADPO, we created three types of data: Sequence, Grid Collage, and Pic-in-Pic Data. These three
+		types of data work together to specifically eliminate the two types of multi-image hallucinations we
+		identified: Sequence Confusion and Element Interference. To study the impact of each data type on
+		overall performance, we trained the LLaVa-v1.5 model separately with 20k instances of each data
+		type and summarized the results in Tab. 3.
+		The experimental results indicate that using each data type individually for DPO on LLaVa-v1.5
+		yields similar average scores of 42.6, 42.4, and 42.7 across five benchmarks. However, when combining all three data types, the model achieves a higher average score of 43.4, as shown in Tab. 1.
+		This suggests that the three data types address different hallucination types, and their combination
+		produces better results than using them separately.<br>
+		      
+		<centering>
                   <div style="text-align: center;">
-                    <img id="teaser" width="100%" src="static/images/mmdu_results.png">
+                    <img id="teaser" width="105%" src="static/images/exp3.png">
                   </div>
               </p>
             </div>
@@ -408,10 +425,10 @@ Our key findings are summarized as follows. (1) Our benchmark poses significant 
       </div>
     </section>
 
-<!-- <section class="section" id="Alpha-CLIP pipeline">
+<section class="section" id="Visualization Observations">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> Alpha-CLIP Pipeline</h2>
+          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO:</span> Visualization Observations </h2>
         </div>
       </div>
       <div class="container is-max-desktop">
@@ -419,10 +436,20 @@ Our key findings are summarized as follows. (1) Our benchmark poses significant 
           <div class="column is-full-width">
             <div class="content has-text-justified">
               <p>
-                The pipeline of our <b>data generation method</b> and <b>model architecture</b>. (a) Our method generates millions of RGBA region-text pairs. (b) Alpha-CLIP modifies the CLIP image encoder to take an additional alpha channel along with RGB. We first generate millions of RGBA region-text data from grounding and classification datasets. Using our generated data, we then train our Alpha-CLIP with additional Alpha-channel inputs.
-                <centering>
+                We visualize the reasoning process of the LLaVA-v1.5 model before and after applying MIA-DPO
+		on multi-image cases. In Fig. 6, we show the attention map of the generated text tokens relative to
+		the input image tokens. The top and second rows display the attention distribution before and after
+		applying MIA-DPO, respectively. The attention difference (delta value) in the third row indicates
+		which areas receive increased attention due to applying our preference optimization process.<br>
+
+		Using MIA-DPO, the LLaVA-v1.5 model adjusts its focus to specific image regions corresponding
+		to the given instruction. In both the first and second cases, we observe an increased focus on the
+		instruction-targeted areas of Image 1 after applying MIA-DPO. In the third case, attention gravitates
+		more toward Image 2, which is specified in the language instruction. The visualization results indicate that MIA-DPO effectively improves the model’s ability to correctly allocate attention to the
+		relevant image regions, reducing the likelihood of multi-image hallucinations.<br>
+		      <centering>
                   <div style="text-align: center;">
-                    <img id="teaser" width="100%" src="static/images/pipeline.png">     
+                    <img id="teaser" width="105%" src="static/images/visualization.png">     
                   </div>
               </p>
             </div>
@@ -430,7 +457,7 @@ Our key findings are summarized as follows. (1) Our benchmark poses significant 
           </div>
         </div>
       </div>
-    </section> -->
+    </section>
 
 
 <!-- <section class="section" id="Alpha-CLIP Attn">
