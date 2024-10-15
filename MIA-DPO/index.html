@@ -230,10 +230,10 @@
             <div class="content has-text-justified">
               <p style="font-size: 15px;">
                 <ul>
-                <li><b>Multi-turn and Multi-image:</b> Our benchmark showcases a conversational setting with a maximum of 20 images and 17 turns, thereby surpassing the scope of preceding works and authentically replicating real-world chat assistant interactions.</li>
-                <li><b>Long Context:</b> With a maximum of 18k text+image tokens, MMDU evaluates the capacity of LVLMs to process and comprehend extended contextual information with a long context history.</li>
-                <li><b>Open-ended Evaluation</b> Departing from traditional benchmarks that rely on close-ended questions with concise outputs (e.g., multiple-choice questions or short answers), our benchmark adopts a more realistic and nuanced approach, assessing LVLM's performance through free-form multi-turn outputs that prioritize scalability and explainability.</li>
-                </ul>
+                <li><b>Multi-Image Visual Alignment Pipeline:</b> We first design a multi-image visual alignment pipeline MIA-DPO. Our MIA-DPO requires no manual annotations and does not rely on APIs from larger models, offering a significant cost advantage compared to existing visual alignment approaches.</li>
+                <li><b>Observation on Multi-Image Hallucinations:</b> We contribute to the study of different types of multi-image hallucinations and propose to use attention values as an indicator for detecting multi-image hallucinations.</li>
+                <li><b>Excellent Performance</b> MIA-DPO is agnostic to different LVLM architectures (LLaVA-v1.5 and InternLM-XC2.5, boosts the performance on multiple multi-image benchmarks while maintaining the original single-image understanding capabilities.</li>
+		</ul>
               </p>
             </div>
           </div>
@@ -241,11 +241,11 @@
       </div>
 </section><br>
 
-<section class="section" id="Benchmark Overview">
+<section class="section" id="Hallucinations">
    <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> <span class="rainbow-text">MMDU</span> Overview</h2>
+          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO's Observation:</span> Multi-Image Hallucinations</h2>
         </div>
 	    </div>
 	      <div class="container is-max-desktop">
@@ -253,11 +253,10 @@
 	          <div class="column is-full-width">
 	            <div class="content has-text-justified">
 	              <p>
-                      Although many LVLMs now claim to handle tens of thousands, hundreds of thousands, or even millions of tokens in length, their actual performance significantly declines in real-world applications as the number of images or the length of the context increases. Both the dialogue quality and image recognition capabilities of LVLMs deteriorate notably under these conditions.<br>
-                      To evaluate the multi-image multi-turn dialogue capabilities of existing models, we have developed the <span class="rainbow-text">MMDU</span> Benchmark. Our benchmark comprises 110 high-quality multi-image multi-turn dialogues with more than 1600 questions, each accompanied by detailed long-form answers. Previous benchmarks typically involved only single images or a small number of images, with fewer rounds of questions and short-form answers. However, <span class="rainbow-text">MMDU</span> significantly increases the number of images, the number of question-and-answer rounds, and the in-context length of the Q&A. The questions in <span class="rainbow-text">MMDU</span> involve 2 to 20 images, with an average image&text token length of 8.2k tokens, and a maximum image&text length reaching 18K tokens, presenting significant challenges to existing multimodal large models.<br>
-                      <centering>
-	                  <div style="text-align: center;">
-	                    <img id="pipeline" width="100%" src="static/images/statistic.png">
+                      Some previous studies have explored different types of single-image hallucinations, such as object hallucination which means the model incorrectly describes objects that are not present in the image. Compared to single-image hallucinations, multi-image scenarios introduce more complex types of hallucinations. As shown in Fig. 2, we categorize multi-image hallucinations into two-types:<br>
+			(1) <strong>Sequence Confusion.</strong> When presented with multiple images, the model may fail to identify which image the input prompt refers to. For instance, in the top case shown in Fig. 2, the question is directed at Image 3 (birds and sky), but the model responds based on Image 4 (a train on tracks).<br>
+			(2) <strong>Element Interference.</strong> The presence of multiple images significantly increases the number of visual elements compared to a single image, leading to confusion between different elements by LVLMs. For example, in the bottom case of Fig. 2, the question “What color is the car in Image2?” should be answered with “white”. However, the LVLM incorrectly interpreted the color attribute of the motorcycle in Image 3 as the color of the car in Image 2, resulting in an incorrect response.<br>
+	                    <img id="pipeline" width="100%" src="static/images/hallu.png">
 	                  </div>
                   </p>
             </div>
