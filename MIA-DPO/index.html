@@ -266,11 +266,11 @@
       </div>
     </section>
 
-<section class="section" id="Benchmark Construction">
+<section class="section" id="Framework">
    <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> <span class="rainbow-text">MMDU</span> Construction</h2>
+          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO</span> Framework</h2>
         </div>
 	    </div>
 	      <div class="container is-max-desktop">
@@ -278,10 +278,10 @@
 	          <div class="column is-full-width">
 	            <div class="content has-text-justified">
 	              <p>
-                      This is an overview of <b>(a) data preparation</b> and <b>(b) generation pipeline</b> for <span class="rainbow-text">MMDU</span> and <span class="rainbow-text">MMDU-45k</span>. We first collect the relevant image and text descriptions from Wikipedia using the clustering algorithm. Then we prompt GPT-4o to design multi-turn questions. The human annotators revise the GPT-4o response as the ground-truth answers.
-                      <centering>
+                      <strong>Attention as an Indicator for Detecting Hallucinations</strong> The attention mechanism reveals wherethe model is “looking” when making a decision. We observe that the attention mechanism provides crucial clues for detecting multi-image hallucinations (Fig. 2). Ideally, attention values should focus on areas of the referred input image relevant to the question. If the attention values are scattered or not strongly focused on the correct visual element or region, it suggests the model is experiencing difficulty understanding multi-image sequences or distinguishing elements between different images. Based on our observation, we design an attention-aware selection that uses the attention values to select the rejected sample that contains the hallucinations in the DPO algorithm.<br>
+			<strong>Post-Selection for Data Cleaning</strong> Although our attention-aware selection is effective in constructing the DPO data, a small amount of noisy samples may be included and potentially causing detrimental effects. To filter out the noisy samples, we incorporate a post-selection step using the following three metrics: (1) <strong>Perplexity (PPL)</strong> (2) <strong>Length Ratio</strong> (3) <strong>Edit Distance.</strong><br>      
 	                  <div style="text-align: center;">
-	                    <img id="pipeline" width="100%" src="static/images/pipeline.png">
+	                    <img id="pipeline" width="100%" src="static/images/framework.png">
 	                  </div> 
                   </p>
             </div>
@@ -292,10 +292,10 @@
     </section>
 
 
-<section class="section" id="Evaluation">
+<section class="section" id="Data Examples">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> <span class="rainbow-text">MMDU</span> Evaluation</h2>
+          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO</span> Data Examples</h2>
         </div>
 	    </div>
 	      <div class="container is-max-desktop">
@@ -303,9 +303,8 @@
 	          <div class="column is-full-width">
 	            <div class="content has-text-justified">
 	              <p>
-Thise is the evaluation pipeline of <span class="rainbow-text">MMDU</span>. We use the GPT-4o as a judge to give the overall score based on the referenced answer. In each evaluation, GPT-4o will refer to both the model's answer and the reference answer. It will provide corresponding scores (in green) for each evaluation criterion (in blue), and finally, summarize the results (in light orange).	                <centering>
-	                  <div style="text-align: center;">
-	                    <img id="teaser" width="100%" src="static/images/llmjudge.png">
+			Rather than expending effort on collecting and annotating new multi-image prompts, we efficiently convert existing single-image datasets, such as LLaVA-665k, by incorporating unrelated images. Our low-cost, scalable approach enriches data forms and allows us to comprehensively explore the various types of multi-image hallucinations that LVLMs might produce. As shown in Fig. 4, we construct multi-image prompts in three formats: (1) ***Sequence***: Multiple images are arranged sequentially, with questions targeting specific images. The number of images varies from 2 to 5. (2) ***Grid Collage***: Multiple images are merged into a single image, each labeled with a number description. Questions focus on specific images based on language descriptions. The number of images ranges from 2 to 9. (3) ***Pic-in-Pic***: One image is resized and overlaid onto another, and questions are asked about the combined image.	                  <div style="text-align: center;">
+	                    <img id="teaser" width="100%" src="static/images/data_case.png">
 	                  </div>
 	              </p>
 	            </div>
@@ -314,10 +313,10 @@ Thise is the evaluation pipeline of <span class="rainbow-text">MMDU</span>. We u
       </div>
     </section>
 
-<section class="section" id="MMDU-45k Instruct Tuning Dataset">
+<section class="section" id="Evaluation">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> <span class="rainbow-text">MMDU-45k</span> Instruct Tuning Dataset</h2>
+          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO</span> Evaluation</h2>
         </div>
 	    </div>
 	      <div class="container is-max-desktop">
