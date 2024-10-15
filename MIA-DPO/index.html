@@ -179,7 +179,7 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
 	<div style="text-align: center;">
-		<img id="teaser" width="100%" src="static/images/teaser.png">
+		<img id="teaser" width="105%" src="static/images/teaser.png">
 	  </div><br>
 	 
         <h2 class="title is-3">Abstract</h2>
@@ -256,7 +256,7 @@
                       Some previous studies have explored different types of single-image hallucinations, such as object hallucination which means the model incorrectly describes objects that are not present in the image. Compared to single-image hallucinations, multi-image scenarios introduce more complex types of hallucinations. As shown in Fig. 2, we categorize multi-image hallucinations into two-types:<br>
 			(1) <strong>Sequence Confusion.</strong> When presented with multiple images, the model may fail to identify which image the input prompt refers to. For instance, in the top case shown in Fig. 2, the question is directed at Image 3 (birds and sky), but the model responds based on Image 4 (a train on tracks).<br>
 			(2) <strong>Element Interference.</strong> The presence of multiple images significantly increases the number of visual elements compared to a single image, leading to confusion between different elements by LVLMs. For example, in the bottom case of Fig. 2, the question “What color is the car in Image2?” should be answered with “white”. However, the LVLM incorrectly interpreted the color attribute of the motorcycle in Image 3 as the color of the car in Image 2, resulting in an incorrect response.<br>
-	                    <img id="pipeline" width="100%" src="static/images/hallu.png">
+	                    <img id="pipeline" width="105%" src="static/images/hallu.png">
 	                  </div>
                   </p>
             </div>
@@ -270,7 +270,7 @@
    <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO</span> Framework</h2>
+          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO:</span> Framework</h2>
         </div>
 	    </div>
 	      <div class="container is-max-desktop">
@@ -281,7 +281,7 @@
                       <strong>Attention as an Indicator for Detecting Hallucinations</strong> The attention mechanism reveals wherethe model is “looking” when making a decision. We observe that the attention mechanism provides crucial clues for detecting multi-image hallucinations (Fig. 2). Ideally, attention values should focus on areas of the referred input image relevant to the question. If the attention values are scattered or not strongly focused on the correct visual element or region, it suggests the model is experiencing difficulty understanding multi-image sequences or distinguishing elements between different images. Based on our observation, we design an attention-aware selection that uses the attention values to select the rejected sample that contains the hallucinations in the DPO algorithm.<br>
 			<strong>Post-Selection for Data Cleaning</strong> Although our attention-aware selection is effective in constructing the DPO data, a small amount of noisy samples may be included and potentially causing detrimental effects. To filter out the noisy samples, we incorporate a post-selection step using the following three metrics: (1) <strong>Perplexity (PPL)</strong> (2) <strong>Length Ratio</strong> (3) <strong>Edit Distance.</strong><br>      
 	                  <div style="text-align: center;">
-	                    <img id="pipeline" width="100%" src="static/images/framework.png">
+	                    <img id="pipeline" width="105%" src="static/images/framework.png">
 	                  </div> 
                   </p>
             </div>
@@ -295,7 +295,7 @@
 <section class="section" id="Data Examples">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO</span> Data Examples</h2>
+          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO:</span> Data Examples</h2>
         </div>
 	    </div>
 	      <div class="container is-max-desktop">
@@ -304,7 +304,7 @@
 	            <div class="content has-text-justified">
 	              <p>
 			Rather than expending effort on collecting and annotating new multi-image prompts, we efficiently convert existing single-image datasets, such as LLaVA-665k, by incorporating unrelated images. Our low-cost, scalable approach enriches data forms and allows us to comprehensively explore the various types of multi-image hallucinations that LVLMs might produce. As shown in Fig. 4, we construct multi-image prompts in three formats: (1) ***Sequence***: Multiple images are arranged sequentially, with questions targeting specific images. The number of images varies from 2 to 5. (2) ***Grid Collage***: Multiple images are merged into a single image, each labeled with a number description. Questions focus on specific images based on language descriptions. The number of images ranges from 2 to 9. (3) ***Pic-in-Pic***: One image is resized and overlaid onto another, and questions are asked about the combined image.	                  <div style="text-align: center;">
-	                    <img id="teaser" width="100%" src="static/images/data_case.png">
+	                    <img id="teaser" width="105%" src="static/images/data_case.png">
 	                  </div>
 	              </p>
 	            </div>
@@ -313,10 +313,10 @@
       </div>
     </section>
 
-<section class="section" id="Evaluation">
+<section class="section" id="Multi-Image Benchmarks Evaluation">
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO</span> Evaluation</h2>
+          <h2 class="title is-3"> <span class="rainbow-text">MIA-DPO:</span> Multi-Image Benchmarks Evaluation</h2>
         </div>
 	    </div>
 	      <div class="container is-max-desktop">
@@ -346,7 +346,7 @@
 			multi-image benchmarks.<br>
 	              </p>
 			  <div style="text-align: center;">
-			    <img id="teaser" width="100%" src="static/images/exp1.png">
+			    <img id="teaser" width="105%" src="static/images/exp1.png">
 			  </div>
 	            </div>
             </b></font>
