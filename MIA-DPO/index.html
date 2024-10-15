@@ -143,7 +143,7 @@
             </div>
 
           <div class="is-size-5 publication-authors">
-              <span class="author-block"><sup>1</sup>Wuhan University,</span>
+              <span class="author-block"><sup>1</sup>Shanghai Jiao Tong University,</span>
               <span class="author-block"><sup>2</sup>Shanghai AI Laboratory,</span>
               <span class="author-block"><sup>3</sup>The Chinese University of Hong Kong,</span>
               <span class="author-block"><sup>4</sup>MThreads, Inc.,</span>
@@ -154,14 +154,14 @@
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link. -->
-              <span class="link-block"> <a href="https://arxiv.org/abs/2406.11833"
+              <span class="link-block"> <a href="https://github.com/Liuziyu77/MIA-DPO/tree/main"
                    class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="ai ai-arxiv"></i> </span> <span>arXiv</span> </a> </span>
               <!-- Code Link. -->
-              <span class="link-block"> <a href="https://github.com/Liuziyu77/MMDU"
+              <span class="link-block"> <a href="https://github.com/Liuziyu77/MIA-DPO/tree/main"
                    class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="fab fa-github"></i> </span> <span>Code</span> </a> </span>
-              <!-- HuggingFace Link. -->
+<!--               <!-- HuggingFace Link. -->
               <span class="link-block"> <a href="https://huggingface.co/datasets/laolao77/MMDU"
-                   class="external-link button is-normal is-rounded is-dark"><span class="icon">🤗</span><span>Space</span> </a></span>
+                   class="external-link button is-normal is-rounded is-dark"><span class="icon">🤗</span><span>Space</span> </a></span> -->
               <!-- Dataset Link. -->
              <!--  <span class="link-block"> <a href="https://huggingface.co/spaces/Zery/Alpha-CLIP_LLaVA-1.5" -->
              <!--       class="external-link button is-normal is-rounded is-dark"> <span class="icon"> <i class="far fa-images"></i> </span> <span>Alpha-CLIP+LLM Demo</span></a></span> -->
@@ -194,14 +194,17 @@
 			  font-weight: bold;
 			}
 		  </style>
-          <p>
-              Generating natural and meaningful responses to communicate with multi-modal human inputs is a fundamental capability of Large Vision-Language Models (LVLMs). While current open-source LVLMs demonstrate promising performance in simplified scenarios such as single-turn single-image input, they fall short in real-world conversation scenarios such as following instructions in a long context history with multi-turn and multi-images. Existing LVLM benchmarks primarily focus on single-choice questions or short-form responses, which do not adequately assess the capabilities of LVLMs in real-world human-AI interaction applications.
-              Therefore, we introduce <span class="rainbow-text">MMDU</span>, a comprehensive benchmark, and <span class="rainbow-text">MMDU-45k</span>, a large-scale instruction tuning dataset, designed to evaluate and improve LVLMs' abilities in multi-turn and multi-image conversations.
-              We employ the clustering algorithm to find the relevant images and textual descriptions from the open-source Wikipedia and construct the question-answer pairs by human annotators with the assistance of the GPT-4o model.
-              <span class="rainbow-text">MMDU</span> has a maximum of 18k image+text tokens, 20 images, and 27 turns, which is at least 5x longer than previous benchmarks and poses challenges to current LVLMs.
-              Our in-depth analysis of 15 representative LVLMs using <span class="rainbow-text">MMDU</span> reveals that open-source LVLMs lag behind closed-source counterparts due to limited conversational instruction tuning data.
-              We demonstrate that fine-tuning open-source LVLMs on <span class="rainbow-text">MMDU-45k</span> significantly address this gap, generating longer and more accurate conversations, and improving scores on <span class="rainbow-text">MMDU</span> and existing benchmarks (MMStar: +1.1%, MathVista: +1.5%, ChartQA: +1.2%). Our contributions pave the way for bridging the gap between current LVLM models and real-world application demands. The links to <span class="rainbow-text">MMDU</span>, and <span class="rainbow-text">MMDU-45k</span> are available in the supplementary material.
-          </p>
+          <p>              
+	          Visual preference alignment involves training Large Vision-Language Models (LVLMs) to predict human preferences between visual inputs. 
+		  This is typically achieved by using labeled datasets of chosen/rejected pairs and employing optimization algorithms like direct preference optimization (DPO). 
+		  Existing visual alignment methods, primarily designed for single-image scenarios, struggle to effectively handle the complexity of multi-image tasks due to the scarcity of diverse training data and the high cost of annotating chosen/rejected pairs. 
+		  🌈We present <span class="rainbow-text">Multi-Image Augmented Direct Preference Optimization (MIA-DPO)</span>, a visual preference alignment approach that effectively handles multi-image inputs. 
+		  MIA-DPO mitigates the scarcity of diverse multi-image training data by extending single-image data with unrelated images arranged in grid collages or pic-in-pic formats, significantly reducing the costs associated with multi-image data annotations. 
+		  Our observation reveals that attention values of LVLMs vary considerably across different images. We use attention values to identify and filter out rejected responses the model may have mistakenly focused on. 
+		  Our attention-aware selection for constructing the chosen/rejected pairs without relying on (i) human annotation, (ii) extra data, and (iii) external models or APIs. 
+		  MIA-DPO is compatible with various architectures and outperforms existing methods on five multi-image benchmarks, achieving an average performance boost of 3.0% on LLaVA-v1.5 and 4.3% on the recent InternLM-XC2.5. 
+		  Moreover, MIA-DPO has a minimal effect on the model's ability to understand single images.  
+	  </p>
       </div>
     </div>
     <!--/ Abstract. -->
