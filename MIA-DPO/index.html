@@ -324,8 +324,30 @@
 	          <div class="column is-full-width">
 	            <div class="content has-text-justified">
 	              <p>
-                      In the <span class="rainbow-text">MMDU-45k</span>, we construct a total of 45k instruct tuning data conversations. Each data in our <span class="rainbow-text">MMDU-45k</span> dataset features an ultra-long context, with an average image&text token length of 5k and a maximum image&text token length of 17k tokens. Each dialogue contains an average of 9 turns of Q&A, with a maximum of 27 turns. Additionally, each data includes content from 2-5 images. The dataset is constructed in a well-designed format, providing excellent scalability. It can be expanded to generate a larger number and longer multi-image, multi-turn dialogues through combinations. The image-text length and the number of turns in MMDU-45k significantly surpass those of all existing instruct tuning datasets. This enhancement greatly improves the model's capabilities in multi-image recognition and understanding, as well as its ability to handle long-context dialogues.
+                        Results on LLaVA-v1.5 As present in Tab. 1, applying MIA-DPO to LLaVA-v1.5 achieves improvements of 1.2%/5.8%/2.3%/2.1%/3.5% on five multi-image benchmarks, which demonstrates
+			the effectiveness of MIA-DPO. As for the challenging MMMU benchmark that requires complex
+			domain-specific knowledge, MIA-DPO enables LLaVA-v1.5 to achieve a 1.2% improvement. The
+			experimental results on MMMU demonstrate that MIA-DPO enhances the LLaVA-v1.5’s reasoning
+			ability on multi-image problems. Additionally, on the BLINK dataset that includes multi-view and
+			spatial relationship reasoning, MIA-DPO significantly boosts the performance of LLaVA-v1.5 by
+			5.8%. Such an improvement highlights the effectiveness of MIA-DPO in enhancing the model’s
+			ability to understand and reason under multi-image scenarios.<br>
+
+			Comparison with Preference Optimization Baselines In Tab. 1, we compare MIA-DPO with
+			three preference optimization baselines (LLaVA-RLHF, HA-DPO, POVID) on LLaVA-v1.5. Thanks
+			to our multi-image attention-based method for constructing the DPO data, MIA-DPO achieves significant advantages on the reported five multi-image benchmarks compared to the baselines.<br>
+			      
+			More LVLM Architectures We also applied MIA-DPO to other LVLM architectures, such as
+			the recent InternLM-XC2.5 model. As shown in Tab. 1, MIA-DPO boosts the performance of
+			1.2%/0.8%/11.1%/4.5%/4.1% across the five benchmarks, resulting in an average improvement of
+			4.3%. The results on LLaVA-1.5 and InternLM-XC2.5 demonstrate that MIA-DPO is general and
+			effective for different LVLM architectures. Notably, despite the Supervised Fine-tuning (SFT) phase
+			of InternLM-XC2.5 involving multi-image data, our MIA-DPO still further boosts performance on
+			multi-image benchmarks.<br>
 	              </p>
+			  <div style="text-align: center;">
+			    <img id="teaser" width="100%" src="static/images/exp1.png">
+			  </div>
 	            </div>
             </b></font>
           </div>
