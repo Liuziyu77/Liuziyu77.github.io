@@ -17,19 +17,33 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I am currently an intern at at <a href='https://www.shlab.org.cn/'>Shanghai AI Laboratory</a> (shlab).
+I am currently an intern at at <a href='https://www.shlab.org.cn/'>Shanghai AI Laboratory</a>, and pursuing a PhD at Shanghai Jiao Tong University.
 
 My research interest includes multimodal large language models(MLLMs), reinforcement learning from human feedback (RLHF)  and retrieval-argument generation(RAG).
 
 
 
 # 🔥 News
+- [2024-10-24] One paper, "MIA-DPO: Multi-Image Augmented Direct Preference Optimization For Large Vision-Language Models," has been rated as the Huggingface **"#1 Paper of the Day"**.
 - [2024-09-28] Two papers, MMDU and MMLONGBENCH-DOC(spotlight), are accepted by NeurIPS2024.
 - [2024-06-18] One paper, "MMDU: A Multi-Turn Multi-Image Dialog Understanding Benchmark and Instruction-Tuning Dataset for LVLMs," has been rated as the Huggingface **"#1 Paper of the Day"**.
 - [2024-06] We are organizing the Visual Perception via Learning in an Open World: The 4th Workshop on Open World Vision and the V3Det Challenge at CVPR 2024.
 
 
 # 📝 Selected Publications 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/MIA-DPO.png' alt="MIA-DPO" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[MIA-DPO: Multi-Image Augmented Direct Preference Optimization For Large Vision-Language Models](https://arxiv.org/abs/2410.17637)
+
+**Ziyu Liu**, Yuhang Zang, Xiaoyi Dong, Pan Zhang, Yuhang Cao, Haodong Duan, Conghui He, Yuanjun Xiong, Dahua Lin, Jiaqi Wang
+
+<span> We present Multi-Image Augmented Direct Preference Optimization (MIA-DPO), a visual preference alignment approach that effectively handles multi-image inputs. We use attention values to identify and filter out rejected responses the model may have mistakenly focused on. Our attention-aware selection for constructing the chosen/rejected pairs without relying on (i) human annotation, (ii) extra data, and (iii) external models or APIs.</span>
+
+[**Github** ![](https://img.shields.io/github/stars/Liuziyu77/MIA-DPO)](https://github.com/Liuziyu77/MIA-DPO)
+</div>
+</div>
+
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/MMDU.png' alt="MMDU" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
@@ -48,8 +62,6 @@ My research interest includes multimodal large language models(MLLMs), reinforce
 [V3Det Challenge 2024 on Vast Vocabulary and Open Vocabulary Object Detection: Methods and Results](https://arxiv.org/abs/2406.11739)
 
 Jiaqi Wang, Yuhang Zang, Pan Zhang, Tao Chu, Yuhang Cao, Zeyi Sun, **Ziyu Liu**, Xiaoyi Dong, Tong Wu, Dahua Lin, Zeming Chen, Zhi Wang, Lingchen Meng, Wenhao Yao, Jianwei Yang, Sihong Wu, Zhineng Chen, Zuxuan Wu, Yu-Gang Jiang, Peixi Wu, Bosong Chai, Xuan Nie, Longquan Yan, Zeyu Wang, Qifan Zhou, Boning Wang, Jiaqi Huang, Zunnan Xu, Xiu Li, Kehong Yuan, Yanyan Zu, Jiayao Ha, Qiong Gao, Licheng Jiao
-
-<span> Detecting objects in real-world scenes is a complex task due to various challenges, including the vast range of object categories, and potential encounters with previously unknown or unseen objects. The challenges necessitate the development of public benchmarks and challenges to advance the field of object detection. Inspired by the success of previous COCO and LVIS Challenges, we organize the V3Det Challenge 2024 in conjunction with the 4th Open World Vision Workshop: Visual Perception via Learning in an Open World (VPLOW) at CVPR 2024, Seattle, US. </span>
 
 [**Homepage**](https://v3det.openxlab.org.cn/challenge)
 </div>
@@ -83,11 +95,14 @@ Yubo Ma, Yuhang Zang, Liangyu Chen, Meiqi Chen, Yizhu Jiao, Xinze Li, Xinyuan Lu
 
 
 # 🎖 Honors and Awards
-- *2024.06*, Excellent Bachelor's Thesis，Outstanding Undergraduate Graduate of WHU.
+- *2024.06*, Excellent Bachelor's Thesis，Outstanding Undergraduate Graduate.
 - *2023.07*, Meritorious Award, Mathematical Contest in Modeling and Interdisciplinary Contest in Modeling (MCM/ICM), COMAP.
 - *2022.05*, National Second Prize, China Undergraduate Mathematical Contest in Modeling(CUMCM), China Society for Industrial and Applied Mathematics(CSIAM).
 - *2022.05*, Finalist Award, Mathematical Contest in Modeling and Interdisciplinary Contest in Modeling (MCM/ICM), COMAP.
 
 # 📖 Educations
-- *2024.09 - until now*, PHD, Shanghai Jiao Tong University. 
-- *2020.09 - 2024.06*, Undergraduate, Wuhan University. 
+- *2024.09 - until now*, PHD, Shanghai Jiao Tong University.
+
+# 📌 Activities
+- Conference reviewer of ICLR.
+- Workshop organizing community of <a href='https://vplow.github.io/vplow_4th.html'>VPLOW@CVPR2024</a>
