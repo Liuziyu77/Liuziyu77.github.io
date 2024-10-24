@@ -22,13 +22,13 @@ baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.ba
 # Site Author
 author:
   name             : "Ziyu Liu"
-  avatar           : "images/me.jpg"
-  bio              : "Shanghai AI Laboratory & Wuhan University"
+  avatar           : "images/me2.jpg"
+  bio              : "Shanghai AI Laboratory & Shanghai Jiao Tong University"
   location         : "Shanghai, China"
   employer         :
   pubmed           : 
   googlescholar    : # "https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID"
-  email            : "2020302121195 at whu.edu.cn"
+  email            : "2184708350@qq.com"
   researchgate     :  # e.g., "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :
@@ -37,7 +37,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : # e.g., "github username"
+  github           : "Liuziyu77"
   google_plus      :
   keybase          :
   instagram        :
