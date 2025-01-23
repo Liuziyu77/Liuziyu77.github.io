@@ -24,6 +24,7 @@ My research interest includes multimodal large language models(MLLMs), reinforce
 
 
 # 🔥 News
+- [2025-01-23] One paper, MIA-DPO, is accepted by ICLR2025.
 - [2024-10-24] One paper, "MIA-DPO: Multi-Image Augmented Direct Preference Optimization For Large Vision-Language Models," has been rated as the Huggingface **"#1 Paper of the Day"**.
 - [2024-09-28] Two papers, MMDU and MMLONGBENCH-DOC(spotlight), are accepted by NeurIPS2024.
 - [2024-06-18] One paper, "MMDU: A Multi-Turn Multi-Image Dialog Understanding Benchmark and Instruction-Tuning Dataset for LVLMs," has been rated as the Huggingface **"#1 Paper of the Day"**.
@@ -34,7 +35,7 @@ My research interest includes multimodal large language models(MLLMs), reinforce
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/MIA-DPO.png' alt="MIA-DPO" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
-[MIA-DPO: Multi-Image Augmented Direct Preference Optimization For Large Vision-Language Models](https://arxiv.org/abs/2410.17637)
+[MIA-DPO: Multi-Image Augmented Direct Preference Optimization For Large Vision-Language Models](https://arxiv.org/abs/2410.17637)***[Accepted by ICLR2025!]***
 
 ***Ziyu Liu***, Yuhang Zang, Xiaoyi Dong, Pan Zhang, Yuhang Cao, Haodong Duan, Conghui He, Yuanjun Xiong, Dahua Lin, Jiaqi Wang
 
