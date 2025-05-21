@@ -19,11 +19,12 @@ redirect_from:
 
 I am currently an intern at at <a href='https://www.shlab.org.cn/'>Shanghai AI Laboratory</a>, and pursuing a PhD at Shanghai Jiao Tong University.
 
-My research interest includes multimodal large language models(MLLMs), reinforcement learning from human feedback (RLHF)  and retrieval-argument generation(RAG).
+My research interest includes multimodal large language models(MLLMs),  reinforcement fine-tuning(RFT), reinforcement learning from human feedback (RLHF)  and retrieval-argument generation(RAG).
 
 
 
 # 🔥 News
+- [2025-05-14] One paper, InternLM-XComposer2.5-Reward, is accepted by ACL 2025 Findinds.
 - [2025-01-23] One paper, MIA-DPO, is accepted by ICLR2025.
 - [2024-10-24] One paper, "MIA-DPO: Multi-Image Augmented Direct Preference Optimization For Large Vision-Language Models," has been rated as the Huggingface **"#1 Paper of the Day"**.
 - [2024-09-28] Two papers, MMDU and MMLONGBENCH-DOC(spotlight), are accepted by NeurIPS2024.
@@ -32,6 +33,19 @@ My research interest includes multimodal large language models(MLLMs), reinforce
 
 
 # 📝 Selected Publications 
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/Visual-ARFT.png' alt="Visual-RFT" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Visual-ARFT: Visual Agentic Reinforcement Fine-Tuning](https://github.com/Liuziyu77/Visual-RFT/tree/main/Visual-ARFT)
+
+***Ziyu Liu***, Yuhang Zang, Yushan Zou, Zijian Liang, Xiaoyi Dong, Yuhang Cao, Haodong Duan, Dahua Lin, Jiaqi Wang
+
+<span> This work highlights the effectiveness of Visual Agentic Reinforcement Fine-Tuning (Visual-ARFT) for enabling flexible and adaptive reasoning abilities for Large Vision-Language Models (LVLMs). With Visual-ARFT, open-source LVLMs gain the ability to browse websites for real-time information updates and write code to manipulate and analyze input images through cropping, rotation, and other image processing techniques. We also present a Multi-modal Agentic Tool Bench (MAT) with two settings (MAT-Search and MAT-Coding) designed to evaluate LVLMs’ agentic search and coding abilities.</span>
+
+[**Github** ![](https://img.shields.io/github/stars/Liuziyu77/Visual-RFT)](https://github.com/Liuziyu77/Visual-RFT)
+</div>
+</div>
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/Visual-RFT.png' alt="Visual-RFT" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
@@ -117,5 +131,5 @@ Yubo Ma, Yuhang Zang, Liangyu Chen, Meiqi Chen, Yizhu Jiao, Xinze Li, Xinyuan Lu
 - *2024.09 - until now*, PHD, Shanghai Jiao Tong University.
 
 # 📌 Activities
-- Conference reviewer of ICLR.
+- Conference reviewer of ICLR, Neurips.
 - Workshop organizing community of <a href='https://vplow.github.io/vplow_4th.html'>VPLOW@CVPR2024</a>
