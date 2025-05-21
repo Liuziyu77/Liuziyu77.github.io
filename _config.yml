@@ -7,7 +7,7 @@
 
 # Site Settings
 title                    : "Ziyu Liu"
-description              : "ฅ( ̳• ·̫ • ̳ฅ) Lie flat..."
+description              : "Welcome to contact me for collaboration."
 repository               : "Liuziyu77/Liuziyu77.github.io"
 google_scholar_stats_use_cdn : true
 
@@ -27,7 +27,7 @@ author:
   location         : "Shanghai, China"
   employer         :
   pubmed           : 
-  googlescholar    : # "https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID"
+  googlescholar    : "https://scholar.google.com/citations?user=hUrX-LMAAAAJ"
   email            : "2184708350@qq.com"
   researchgate     :  # e.g., "https://www.researchgate.net/profile/yourprofile"
   uri              :
