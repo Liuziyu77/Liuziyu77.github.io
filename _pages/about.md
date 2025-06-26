@@ -24,7 +24,8 @@ My research interest includes multimodal large language models(MLLMs),  reinforc
 
 
 # 🔥 News
-- [2025-05-14] One paper, InternLM-XComposer2.5-Reward, is accepted by ACL 2025 Findinds.
+- [2025-06-26] One paper, Visual-RFT, is accepted by ICCV 2025.
+- [2025-05-14] One paper, InternLM-XComposer2.5-Reward, is accepted by ACL 2025 Findind.
 - [2025-01-23] One paper, MIA-DPO, is accepted by ICLR2025.
 - [2024-10-24] One paper, "MIA-DPO: Multi-Image Augmented Direct Preference Optimization For Large Vision-Language Models," has been rated as the Huggingface **"#1 Paper of the Day"**.
 - [2024-09-28] Two papers, MMDU and MMLONGBENCH-DOC(spotlight), are accepted by NeurIPS2024.
@@ -50,7 +51,7 @@ My research interest includes multimodal large language models(MLLMs),  reinforc
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/Visual-RFT.png' alt="Visual-RFT" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
-[Visual-RFT: Visual Reinforcement Fine-Tuning](https://github.com/Liuziyu77/Visual-RFT)
+[Visual-RFT: Visual Reinforcement Fine-Tuning](https://github.com/Liuziyu77/Visual-RFT)***[Accepted by ICCV2025!]***
 
 ***Ziyu Liu***, Zeyi Sun, Yuhang Zang, Xiaoyi Dong, Yuhang Cao, Haodong Duan, Dahua Lin, Jiaqi Wang
 
