@@ -132,5 +132,5 @@ Yubo Ma, Yuhang Zang, Liangyu Chen, Meiqi Chen, Yizhu Jiao, Xinze Li, Xinyuan Lu
 - *2024.09 - until now*, PHD, Shanghai Jiao Tong University.
 
 # 📌 Activities
-- Conference reviewer of ICLR, Neurips.
+- Reviewer of ICLR, Neurips, CVPR, TMM. (Top Reviewer of Neurips2025)
 - Workshop organizing community of <a href='https://vplow.github.io/vplow_4th.html'>VPLOW@CVPR2024</a>
