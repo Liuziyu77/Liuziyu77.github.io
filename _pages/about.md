@@ -24,6 +24,7 @@ My research interest includes multimodal large language models(MLLMs),  reinforc
 
 
 # 🔥 News
+- [2025-12-09] One paper, RAR, is accepted by IEEE Transactions on Image Processing.
 - [2025-06-26] One paper, Visual-RFT, is accepted by ICCV 2025.
 - [2025-05-14] One paper, InternLM-XComposer2.5-Reward, is accepted by ACL 2025 Finding.
 - [2025-01-23] One paper, MIA-DPO, is accepted by ICLR2025.
@@ -100,7 +101,7 @@ Jiaqi Wang, Yuhang Zang, Pan Zhang, Tao Chu, Yuhang Cao, Zeyi Sun, ***Ziyu Liu**
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/RAR.png' alt="RAR" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
-[RAR:Retrieving And Ranking Augmented MLLMs for Visual Recognition](https://arxiv.org/abs/2403.13805)
+[RAR:Retrieving And Ranking Augmented MLLMs for Visual Recognition](https://arxiv.org/abs/2403.13805)***[Accepted by IEEE Transactions on Image Processing]***
 
 ***Ziyu Liu***, Zeyi Sun, Yuhang Zang, Wei Li, Pan Zhang, Xiaoyi Dong, Yuanjun Xiong, Dahua Lin, Jiaqi Wang
 
