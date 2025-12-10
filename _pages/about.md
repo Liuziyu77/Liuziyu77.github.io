@@ -17,9 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I am currently an intern at at <a href='https://www.shlab.org.cn/'>Shanghai AI Laboratory</a>, and pursuing a PhD at Shanghai Jiao Tong University.
-
-My research interest includes multimodal large language models(MLLMs),  reinforcement fine-tuning(RFT), reinforcement learning from human feedback (RLHF)  and retrieval-argument generation(RAG).
+I am currently a Ph.D. student at Shanghai Jiao Tong University (SJTU) under the supervision of <a href='https://scholar.google.com/citations?user=GMzzRRUAAAAJ&hl=en'>Prof. Dahua Lin</a>. I am currently conducting my research at the Shanghai AI Laboratory, where I am jointly advised by <a href='https://yuhangzang.github.io/'>Yuhang Zang</a> and <a href='https://myownskyw7.github.io/'>Jiaqi Wang</a>. My research focuses on Multimodal Large Language Models, Reinforcement Fine-Tuning and Reinforcement Learning, AI Agent, and Reward Model.
 
 
 
