@@ -22,6 +22,7 @@ I am currently a Ph.D. student at Shanghai Jiao Tong University (SJTU) under the
 
 
 # 🔥 News
+- [2026-02-21] One paper, ARM-Thinker, is accepted by CVPR 2026.
 - [2025-12-09] One paper, RAR, is accepted by IEEE Transactions on Image Processing.
 - [2025-06-26] One paper, Visual-RFT, is accepted by ICCV 2025.
 - [2025-05-14] One paper, InternLM-XComposer2.5-Reward, is accepted by ACL 2025 Finding.
@@ -121,5 +122,5 @@ Yubo Ma, Yuhang Zang, Liangyu Chen, Meiqi Chen, Yizhu Jiao, Xinze Li, Xinyuan Lu
 - *2024.09 - until now*, PHD, Shanghai Jiao Tong University.
 
 # 📌 Activities
-- Reviewer of ICLR2025, ICLR2026, Neurips2024, NeurIPS2025 (Top Reviewer), CVPR, TMM. 
+- Reviewer of ICLR, NeurIPS (2025 Top Reviewer), CVPR, ICML, ECCV, TMM. 
 - Workshop organizing community of <a href='https://vplow.github.io/vplow_4th.html'>VPLOW@CVPR2024</a>
