@@ -22,6 +22,7 @@ I am currently a Ph.D. student at Shanghai Jiao Tong University (SJTU) under the
 
 
 # 🔥 News
+- [2026-03-25] We release the <a href='https://github.com/InternLM/WildClawBench'>WildClawBench</a>.
 - [2026-02-21] One paper, ARM-Thinker, is accepted by CVPR 2026.
 - [2025-12-09] One paper, RAR, is accepted by IEEE Transactions on Image Processing.
 - [2025-06-26] One paper, Visual-RFT, is accepted by ICCV 2025.
