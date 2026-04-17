@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" width="960" height="320">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0f1a"/>
+      <stop offset="100%" stop-color="#131729"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="50%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <radialGradient id="orb1" cx="30%" cy="40%">
+      <stop offset="0%" stop-color="rgba(34,211,238,0.12)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="orb2" cx="70%" cy="60%">
+      <stop offset="0%" stop-color="rgba(167,139,250,0.10)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <filter id="blur1"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="320" fill="url(#bg)" rx="16"/>
+
+  <!-- Ambient orbs -->
+  <ellipse cx="280" cy="130" rx="260" ry="200" fill="url(#orb1)"/>
+  <ellipse cx="680" cy="190" rx="240" ry="180" fill="url(#orb2)"/>
+
+  <!-- Gradient accent line -->
+  <rect x="80" y="236" width="800" height="2" rx="1" fill="url(#glow)" opacity="0.4"/>
+
+  <!-- ── TITLE ───────────────────────────────────────────────────── -->
+  <text x="480" y="105" text-anchor="middle"
+        font-family="'Courier New', Courier, monospace"
+        font-weight="800" font-size="56" letter-spacing="-1"
+        fill="url(#titleGrad)">gene.skill</text>
+
+  <!-- ── SUBTITLE ────────────────────────────────────────────────── -->
+  <text x="480" y="148" text-anchor="middle"
+        font-family="'Inter','Segoe UI',system-ui,sans-serif"
+        font-weight="400" font-size="18"
+        fill="#94a3b8">基因重组 · Genetic Recombination for Skills</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PIPELINE VISUALIZATION
+       [人物 Skill] [工具 Skill] [同事 Skill] → [🧬 gene.skill] → [合成技能] [新特质] [基因图谱]
+       ═══════════════════════════════════════════════════════════════ -->
+  <g font-family="'Inter','Segoe UI',system-ui,sans-serif" font-size="12" font-weight="600">
+
+    <!-- INPUT TAGS (cyan) -->
+    <rect x="100" y="188" width="80" height="28" rx="6"
+          fill="rgba(34,211,238,0.12)" stroke="rgba(34,211,238,0.3)" stroke-width="1"/>
+    <text x="140" y="206" text-anchor="middle" fill="#22d3ee">人物 Skill</text>
+
+    <rect x="188" y="188" width="80" height="28" rx="6"
+          fill="rgba(34,211,238,0.12)" stroke="rgba(34,211,238,0.3)" stroke-width="1"/>
+    <text x="228" y="206" text-anchor="middle" fill="#22d3ee">工具 Skill</text>
+
+    <rect x="276" y="188" width="80" height="28" rx="6"
+          fill="rgba(34,211,238,0.12)" stroke="rgba(34,211,238,0.3)" stroke-width="1"/>
+    <text x="316" y="206" text-anchor="middle" fill="#22d3ee">同事 Skill</text>
+
+    <!-- Arrow → -->
+    <text x="376" y="208"
+          font-family="'Inter',sans-serif" font-size="20" fill="#64748b">&#x2192;</text>
+
+    <!-- ENGINE (amber) -->
+    <rect x="408" y="186" width="140" height="32" rx="8"
+          fill="rgba(251,191,36,0.12)" stroke="rgba(251,191,36,0.3)" stroke-width="1"/>
+    <text x="478" y="207" text-anchor="middle"
+          font-weight="700" fill="#fbbf24">🧬 gene.skill</text>
+
+    <!-- Arrow → -->
+    <text x="564" y="208"
+          font-family="'Inter',sans-serif" font-size="20" fill="#64748b">&#x2192;</text>
+
+    <!-- OUTPUT TAGS (purple) -->
+    <rect x="600" y="188" width="76" height="28" rx="6"
+          fill="rgba(167,139,250,0.12)" stroke="rgba(167,139,250,0.3)" stroke-width="1"/>
+    <text x="638" y="206" text-anchor="middle" fill="#a78bfa">合成技能</text>
+
+    <rect x="684" y="188" width="66" height="28" rx="6"
+          fill="rgba(167,139,250,0.12)" stroke="rgba(167,139,250,0.3)" stroke-width="1"/>
+    <text x="717" y="206" text-anchor="middle" fill="#a78bfa">新特质</text>
+
+    <rect x="758" y="188" width="80" height="28" rx="6"
+          fill="rgba(167,139,250,0.12)" stroke="rgba(167,139,250,0.3)" stroke-width="1"/>
+    <text x="798" y="206" text-anchor="middle" fill="#a78bfa">基因图谱</text>
+  </g>
+
+  <!-- ── FEATURE MINI-TAGS ───────────────────────────────────────── -->
+  <g font-family="'Inter','Segoe UI',system-ui,sans-serif" font-size="11" font-weight="500">
+    <rect x="232" y="254" width="90" height="24" rx="12"
+          fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="277" y="270" text-anchor="middle" fill="#64748b">多Skill重组</text>
+
+    <rect x="330" y="254" width="80" height="24" rx="12"
+          fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="370" y="270" text-anchor="middle" fill="#64748b">显性基因</text>
+
+    <rect x="418" y="254" width="78" height="24" rx="12"
+          fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="457" y="270" text-anchor="middle" fill="#64748b">突变 ×4</text>
+
+    <rect x="504" y="254" width="88" height="24" rx="12"
+          fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="548" y="270" text-anchor="middle" fill="#64748b">跨类型重组</text>
+
+    <rect x="600" y="254" width="80" height="24" rx="12"
+          fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="640" y="270" text-anchor="middle" fill="#64748b">代际传承</text>
+  </g>
+
+  <!-- ── BOTTOM TAGLINE ──────────────────────────────────────────── -->
+  <text x="480" y="302" text-anchor="middle"
+        font-family="'Inter','Segoe UI',system-ui,sans-serif"
+        font-weight="500" font-size="14"
+        fill="#64748b">不是拼接，是在基因序列层面重新排列</text>
+
+  <!-- Corner decorative dots -->
+  <circle cx="40" cy="40" r="3" fill="#22d3ee" opacity="0.3"/>
+  <circle cx="920" cy="40" r="3" fill="#a78bfa" opacity="0.3"/>
+  <circle cx="40" cy="280" r="3" fill="#fbbf24" opacity="0.3"/>
+  <circle cx="920" cy="280" r="3" fill="#22d3ee" opacity="0.3"/>
+</svg>
