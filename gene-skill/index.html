@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="gene.skill — 面向 Agent Skills 的基因工程框架">
+  <meta name="keywords" content="gene skill, agent skill, LLM, Claude Code, OpenClaw, skill recombination">
+  <title>gene.skill | 基因重组</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d1117;
+      --bg2:      #0f1923;
+      --bg3:      #161b22;
+      --border:   #21262d;
+      --cyan:     #22d3ee;
+      --purple:   #a78bfa;
+      --green:    #4ade80;
+      --amber:    #fbbf24;
+      --text:     #e6edf3;
+      --muted:    #8b949e;
+      --radius:   12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 40px;
+      background: rgba(13,17,23,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem; font-weight: 600;
+      color: var(--cyan); text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: .9rem;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--cyan); color: #0d1117;
+      padding: 7px 18px; border-radius: 6px; font-size: .85rem;
+      font-weight: 600; text-decoration: none; transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: .85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 20px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 0%,   rgba(34,211,238,.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 60%,  rgba(167,139,250,.1)  0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 20% 70%,  rgba(34,211,238,.07)  0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-logo { width: min(640px, 90vw); margin-bottom: 28px; }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700; letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+    .hero-quote {
+      color: var(--muted); font-style: italic;
+      font-size: .95rem; margin-bottom: 40px; max-width: 560px;
+    }
+    .hero-quote span { color: var(--text); }
+    .hero-badges {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 40px;
+    }
+    .badge {
+      padding: 6px 16px; border-radius: 20px; font-size: .8rem;
+      font-family: 'JetBrains Mono', monospace; font-weight: 600;
+      border: 1px solid; letter-spacing: .3px;
+    }
+    .badge-cyan   { border-color: var(--cyan);   color: var(--cyan);   background: rgba(34,211,238,.08); }
+    .badge-purple { border-color: var(--purple); color: var(--purple); background: rgba(167,139,250,.08); }
+    .badge-green  { border-color: var(--green);  color: var(--green);  background: rgba(74,222,128,.08); }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 26px; border-radius: 8px;
+      font-size: .95rem; font-weight: 600; text-decoration: none;
+      transition: all .2s; border: 1.5px solid transparent;
+    }
+    .btn-primary {
+      background: var(--cyan); color: #0d1117; border-color: var(--cyan);
+    }
+    .btn-primary:hover { background: transparent; color: var(--cyan); }
+    .btn-outline {
+      background: transparent; color: var(--text); border-color: var(--border);
+    }
+    .btn-outline:hover { border-color: var(--muted); }
+
+    /* ── SECTION ── */
+    section { padding: 90px 20px; }
+    .container { max-width: 1040px; margin: 0 auto; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--cyan);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--muted); font-size: 1rem;
+      max-width: 600px; margin-bottom: 56px;
+    }
+
+    /* ── WHAT IS ── */
+    .what-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      align-items: center;
+    }
+    .what-text p { color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .what-text p strong { color: var(--text); }
+    .what-tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .95rem; color: var(--cyan);
+      border-left: 3px solid var(--cyan);
+      padding-left: 16px; margin-top: 24px; line-height: 1.6;
+    }
+    .framework-img {
+      width: 100%; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 0 60px rgba(34,211,238,.08);
+    }
+
+    /* ── FEATURES ── */
+    #features { background: var(--bg2); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .feat-card {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 26px;
+      transition: border-color .25s, transform .25s;
+    }
+    .feat-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+    .feat-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 16px;
+      background: rgba(34,211,238,.1); color: var(--cyan);
+    }
+    .feat-card.purple .feat-icon { background: rgba(167,139,250,.1); color: var(--purple); }
+    .feat-card.green  .feat-icon { background: rgba(74,222,128,.1);  color: var(--green); }
+    .feat-card.amber  .feat-icon { background: rgba(251,191,36,.1);  color: var(--amber); }
+    .feat-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+    .feat-card p  { color: var(--muted); font-size: .9rem; line-height: 1.65; }
+
+    /* ── GENE MAP ── */
+    .gene-tabs {
+      display: flex; gap: 8px; margin-bottom: 28px;
+    }
+    .tab-btn {
+      padding: 8px 20px; border-radius: 6px; border: 1px solid var(--border);
+      background: transparent; color: var(--muted);
+      font-size: .9rem; cursor: pointer; transition: all .2s;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .tab-btn.active { background: var(--cyan); color: #0d1117; border-color: var(--cyan); font-weight: 600; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .gene-table {
+      width: 100%; border-collapse: collapse;
+    }
+    .gene-table th {
+      text-align: left; padding: 12px 16px;
+      font-size: .8rem; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--muted); border-bottom: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .gene-table td {
+      padding: 14px 16px; border-bottom: 1px solid var(--border);
+      font-size: .9rem; vertical-align: top;
+    }
+    .gene-table tr:last-child td { border-bottom: none; }
+    .gene-table tr:hover td { background: rgba(255,255,255,.02); }
+    .gene-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem; font-weight: 600;
+      padding: 3px 8px; border-radius: 4px;
+      background: rgba(34,211,238,.12); color: var(--cyan);
+      white-space: nowrap;
+    }
+    .gene-tag.purple { background: rgba(167,139,250,.12); color: var(--purple); }
+    td.muted { color: var(--muted); font-size: .85rem; }
+
+    /* ── INHERITANCE ── */
+    #inheritance { background: var(--bg2); }
+    .rules-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .rule-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 22px 20px; background: var(--bg3);
+      transition: border-color .2s;
+    }
+    .rule-card:hover { border-color: var(--purple); }
+    .rule-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+      font-weight: 700; letter-spacing: 1px;
+      color: var(--purple); margin-bottom: 8px; display: block;
+    }
+    .rule-card h4 { font-size: .95rem; font-weight: 600; margin-bottom: 6px; }
+    .rule-card p  { color: var(--muted); font-size: .82rem; line-height: 1.6; }
+
+    /* ── FLOW ── */
+    .flow-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      max-width: 680px; margin: 0 auto;
+    }
+    .flow-item {
+      display: flex; align-items: flex-start; gap: 20px;
+      width: 100%; padding: 0 0 0 0;
+    }
+    .flow-left {
+      display: flex; flex-direction: column; align-items: center;
+      flex-shrink: 0; width: 44px;
+    }
+    .flow-dot {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 2px solid var(--cyan); background: rgba(34,211,238,.1);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace; font-size: .8rem;
+      font-weight: 700; color: var(--cyan); flex-shrink: 0;
+    }
+    .flow-dot.optional { border-color: var(--purple); background: rgba(167,139,250,.1); color: var(--purple); }
+    .flow-line {
+      width: 2px; flex: 1; min-height: 28px;
+      background: linear-gradient(var(--cyan), var(--border));
+      margin: 4px 0;
+    }
+    .flow-content { padding: 10px 0 32px; flex: 1; }
+    .flow-content h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .flow-content p  { color: var(--muted); font-size: .88rem; line-height: 1.65; }
+    .flow-note {
+      display: inline-block; margin-top: 8px;
+      font-size: .78rem; color: var(--purple);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── EXAMPLES ── */
+    #examples { background: var(--bg2); }
+    .ex-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .examples-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+    .ex-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 22px 22px; background: var(--bg3);
+      transition: all .25s; cursor: default;
+    }
+    .ex-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+    .ex-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .ex-type {
+      font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+      font-weight: 700; letter-spacing: 1px;
+      padding: 3px 8px; border-radius: 4px; border: 1px solid;
+    }
+    .ex-type.persona { border-color: var(--cyan);   color: var(--cyan); }
+    .ex-type.tool    { border-color: var(--purple); color: var(--purple); }
+    .ex-type.cross   { border-color: var(--amber);  color: var(--amber); }
+    .ex-card h4 { font-size: 1rem; font-weight: 600; }
+    .ex-card .sources { color: var(--muted); font-size: .82rem; margin-bottom: 10px; }
+    .ex-highlight {
+      font-size: .82rem; color: var(--muted); line-height: 1.6;
+      border-left: 2px solid var(--border); padding-left: 10px;
+    }
+    .ex-highlight strong { color: var(--green); font-weight: 500; }
+
+    /* ── INSTALL ── */
+    .install-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px; margin-bottom: 48px;
+    }
+    .install-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 26px; background: var(--bg3);
+    }
+    .install-card h3 {
+      display: flex; align-items: center; gap: 10px;
+      font-size: .95rem; font-weight: 600; margin-bottom: 14px;
+    }
+    .install-card h3 i { color: var(--cyan); }
+    pre {
+      background: #0d1117; border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 16px;
+      font-family: 'JetBrains Mono', monospace; font-size: .82rem;
+      color: var(--green); overflow-x: auto; margin-bottom: 10px;
+    }
+    .install-card p { color: var(--muted); font-size: .85rem; margin-top: 8px; }
+    .install-card code {
+      background: rgba(34,211,238,.1); color: var(--cyan);
+      padding: 2px 6px; border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace; font-size: .8rem;
+    }
+
+    /* ── USAGE EXAMPLES ── */
+    .usage-block {
+      background: #0d1117; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+    }
+    .usage-block pre {
+      border: none; background: transparent; padding: 0; margin: 0;
+      color: var(--text); font-size: .88rem; line-height: 2;
+    }
+    .usage-block pre .comment { color: var(--muted); }
+    .usage-block pre .cmd     { color: var(--cyan); }
+
+    /* ── INTEGRATION ── */
+    #integration { background: var(--bg2); }
+    .integ-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    }
+    .integ-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 22px 20px; background: var(--bg3); text-align: center;
+      transition: border-color .2s;
+    }
+    .integ-card:hover { border-color: var(--cyan); }
+    .integ-card i { font-size: 2rem; color: var(--cyan); margin-bottom: 12px; display: block; }
+    .integ-card h4 { font-size: .95rem; font-weight: 600; margin-bottom: 6px; }
+    .integ-card p  { color: var(--muted); font-size: .82rem; line-height: 1.6; }
+    .integ-card a  { color: var(--cyan); text-decoration: none; font-size: .82rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      padding: 48px 20px; text-align: center;
+    }
+    footer .footer-logo {
+      font-family: 'JetBrains Mono', monospace; font-size: 1.1rem;
+      font-weight: 700; color: var(--cyan); margin-bottom: 10px;
+    }
+    footer p { color: var(--muted); font-size: .85rem; line-height: 1.8; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--cyan); }
+    .footer-links { display: flex; gap: 24px; justify-content: center; margin: 16px 0; }
+    .footer-links a { color: var(--muted); font-size: .9rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--cyan); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px; background: var(--border); margin: 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      .what-grid { grid-template-columns: 1fr; }
+      .integ-grid { grid-template-columns: 1fr; }
+      section { padding: 64px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">🧬 gene.skill</a>
+  <ul class="nav-links">
+    <li><a href="#what">简介</a></li>
+    <li><a href="#features">核心能力</a></li>
+    <li><a href="#flow">执行流程</a></li>
+    <li><a href="#examples">示例</a></li>
+    <li><a href="#install">快速开始</a></li>
+  </ul>
+  <a class="nav-cta" href="https://github.com/Liuziyu77/gene-skill" target="_blank">
+    <i class="fab fa-github"></i> GitHub
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-logo" src="https://raw.githubusercontent.com/Liuziyu77/gene-skill/main/assets/logo_v3.svg" alt="gene.skill">
+  <h1>基因重组 · 超级 Skills</h1>
+  <p class="hero-quote">
+    「从如此简单的起点，演化出无数最美丽、最奇妙的生命形式。」<br>
+    <span>—— 达尔文《物种起源》</span>
+  </p>
+  <div class="hero-badges">
+    <span class="badge badge-cyan">人物 Skill × 人物 Skill</span>
+    <span class="badge badge-purple">工具 Skill × 工具 Skill</span>
+    <span class="badge badge-green">跨类型重组</span>
+  </div>
+  <div class="hero-btns">
+    <a class="btn btn-primary" href="https://github.com/Liuziyu77/gene-skill" target="_blank">
+      <i class="fab fa-github"></i> 开始使用
+    </a>
+    <a class="btn btn-outline" href="#what">了解更多 ↓</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT IS -->
+<section id="what">
+  <div class="container">
+    <div class="what-grid">
+      <div class="what-text">
+        <p class="section-label">What is gene.skill</p>
+        <h2 class="section-title">像编辑 DNA 一样<br>组合 Skills</h2>
+        <p>我们不从零编写 Skills，我们进化它们。<strong>gene.skill</strong> 是一套面向 Agent Skills 的基因工程框架，让你从现有优质 Skills 中提取「能力基因」，通过重组与突变，打造超越亲代能力的<strong>下一代超级 Skill</strong>。</p>
+        <p>哲学家的心智模型、创作者的叙事风格、复杂工具链的执行流程——通通都能继承、融合，甚至突变出亲代没有的全新能力。</p>
+        <p>和粗暴拼接 prompt 的根本区别在于：gene.skill 显式处理冲突、追踪每个特质的来源、<strong>保留矛盾而不是磨平它</strong>。生成的合成体是新的思维实体，不是两个亲本的平均。</p>
+        <p class="what-tagline">拆解 · 重组 · 变异<br>Agent Skills 进化的奇点，由此开始。</p>
+      </div>
+      <div>
+        <img class="framework-img"
+          src="https://raw.githubusercontent.com/Liuziyu77/gene-skill/main/assets/framework.png"
+          alt="gene.skill framework">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <p class="section-label">Core Capabilities</p>
+    <h2 class="section-title">核心能力</h2>
+    <p class="section-sub">从基因提取到突变验证，完整的 Skill 进化流水线。</p>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon"><i class="fas fa-dna"></i></div>
+        <h3>多 Skill 重组</h3>
+        <p>同时杂交 2 到 5 个 Skills。互补型保留、冲突型仲裁、协同型融合为超级基因，矛盾型化为内在张力。</p>
+      </div>
+      <div class="feat-card purple">
+        <div class="feat-icon"><i class="fas fa-sliders-h"></i></div>
+        <h3>显性基因比例</h3>
+        <p>精确控制哪个 Skill 的特质占主导。70:30 让 A 明显而 B 留痕迹；90:10 接近完全压制。</p>
+      </div>
+      <div class="feat-card green">
+        <div class="feat-icon"><i class="fas fa-random"></i></div>
+        <h3>四种基因突变</h3>
+        <p>定向突变 · 随机涌现 · 逆向突变 · 过表达——产生亲本中本不存在的全新能力。</p>
+      </div>
+      <div class="feat-card amber">
+        <div class="feat-icon"><i class="fas fa-layer-group"></i></div>
+        <h3>跨类型重组</h3>
+        <p>人物 Skill × 工具 Skill、工具 × 工具——工具有了灵魂，人物获得执行能力。</p>
+      </div>
+      <div class="feat-card purple">
+        <div class="feat-icon"><i class="fas fa-sitemap"></i></div>
+        <h3>代际传承</h3>
+        <p>合成体可再作为亲本参与下一代重组，支持最多 3 代传承，打造复合型进化谱系。</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="fas fa-project-diagram"></i></div>
+        <h3>基因来源图谱</h3>
+        <p>每个特质都能追溯回哪个源 Skill 的哪个基因座位，完整的谱系记录，透明可信。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GENE MAP -->
+<section id="genes">
+  <div class="container">
+    <p class="section-label">Gene Architecture</p>
+    <h2 class="section-title">基因座位设计</h2>
+    <p class="section-sub">杂交时真正会冲突或协同的东西，才作为独立座位。每个座位可以单独调权重，也可以和另一个 Skill 的同类座位发生遗传反应。</p>
+
+    <div class="gene-tabs">
+      <button class="tab-btn active" onclick="switchTab('g', this)">人物 Skill (G1–G7)</button>
+      <button class="tab-btn" onclick="switchTab('t', this)">工具 Skill (T1–T5)</button>
+    </div>
+
+    <div id="tab-g" class="tab-panel active">
+      <table class="gene-table">
+        <thead>
+          <tr><th>基因座位</th><th>提取内容</th><th>杂交意义</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="gene-tag">G1</span> 心智模型</td>
+            <td>核心思维框架（3–7 个），含触发场景和失效条件</td>
+            <td class="muted">最容易正面冲突，也最容易协同出超级基因</td>
+          </tr>
+          <tr>
+            <td><span class="gene-tag">G2</span> 决策启发式</td>
+            <td>快速判断规则（如果 X 则 Y）</td>
+            <td class="muted">决定合成体的行为模式，是杂交后「像谁」的核心</td>
+          </tr>
+          <tr>
+            <td><span class="gene-tag">G3</span> 表达 DNA</td>
+            <td>句式偏好、词汇密度、幽默方式</td>
+            <td class="muted">决定合成体有没有辨识度，不是两个亲本的平均腔调</td>
+          </tr>
+          <tr>
+            <td><span class="gene-tag">G4</span> 价值观</td>
+            <td>核心价值排序 + 反模式</td>
+            <td class="muted">最深层的张力来源，不能被 G1 或 G2 代替</td>
+          </tr>
+          <tr>
+            <td><span class="gene-tag">G5</span> 内在张力</td>
+            <td>同一人物内部已有的价值矛盾</td>
+            <td class="muted">保留亲本自身的张力，防止合成体把深度磨平</td>
+          </tr>
+          <tr>
+            <td><span class="gene-tag">G6</span> 智识谱系</td>
+            <td>受谁影响、影响了谁</td>
+            <td class="muted">跨人物重组时找到隐性关联</td>
+          </tr>
+          <tr>
+            <td><span class="gene-tag">G7</span> 诚实边界</td>
+            <td>此 Skill 做不到什么</td>
+            <td class="muted">亲本的局限应当继承，防止合成体过度自信</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="tab-t" class="tab-panel">
+      <table class="gene-table">
+        <thead>
+          <tr><th>基因座位</th><th>提取内容</th><th>杂交意义</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="gene-tag purple">T1</span> 核心工作流</td>
+            <td>主执行流程（Phase/Step 结构）</td>
+            <td class="muted">两个工具的流程决定合并后任务怎么跑，冲突最直接</td>
+          </tr>
+          <tr>
+            <td><span class="gene-tag purple">T2</span> 工具调用模式</td>
+            <td>何时调用哪些工具</td>
+            <td class="muted">工具选择策略不同时需要显性仲裁</td>
+          </tr>
+          <tr>
+            <td><span class="gene-tag purple">T3</span> 输出格式</td>
+            <td>产物结构、格式约定</td>
+            <td class="muted">各有主张时必须明确谁主导，否则输出混乱</td>
+          </tr>
+          <tr>
+            <td><span class="gene-tag purple">T4</span> 交互模式</td>
+            <td>确认节点设计、问题风格</td>
+            <td class="muted">决定合成工具「打扰用户」的频率和方式</td>
+          </tr>
+          <tr>
+            <td><span class="gene-tag purple">T5</span> 错误处理</td>
+            <td>失败情况的应对策略</td>
+            <td class="muted">两个工具的容忍度和兜底方式往往不同，需明确继承哪套</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INHERITANCE -->
+<section id="inheritance">
+  <div class="container">
+    <p class="section-label">Inheritance Rules</p>
+    <h2 class="section-title">遗传规则</h2>
+    <p class="section-sub">冲突不是问题，是深度的来源。五种遗传规则，覆盖从完全压制到保留矛盾的所有情形。</p>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <span class="rule-tag">COMPLETE DOMINANCE</span>
+        <h4>完全显性</h4>
+        <p>权重 &gt; 80:20 时，显性方完全覆盖隐性方，隐性基因在该维度不表达。</p>
+      </div>
+      <div class="rule-card">
+        <span class="rule-tag">INCOMPLETE DOMINANCE</span>
+        <h4>不完全显性</h4>
+        <p>权重 51:49–79:21，显性方为主，隐性方仍留有痕迹，混合表达。</p>
+      </div>
+      <div class="rule-card">
+        <span class="rule-tag">CODOMINANCE</span>
+        <h4>共显性</h4>
+        <p>明确均等 50:50，两个基因各自完整表达，按场景分流激活。</p>
+      </div>
+      <div class="rule-card">
+        <span class="rule-tag">SYNERGISTIC FUSION</span>
+        <h4>协同融合</h4>
+        <p>两个基因相互增强，叠加效果大于各自之和，融合为新的超级基因。</p>
+      </div>
+      <div class="rule-card">
+        <span class="rule-tag">PRESERVED TENSION</span>
+        <h4>矛盾保留</h4>
+        <p>根本冲突不调和，化为内在张力——这是合成体深度的来源，不是 bug。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FLOW -->
+<section id="flow">
+  <div class="container" style="max-width:760px;">
+    <p class="section-label">Execution Flow</p>
+    <h2 class="section-title">执行流程</h2>
+    <p class="section-sub" style="margin-bottom:48px;">每个关键节点都有确认检查点，可随时调整参数后继续。</p>
+
+    <div class="flow-wrap">
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot">P0</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <h4>输入解析</h4>
+          <p>扫描源 Skill 文件，收集显性比例、突变类型、用途、命名等参数。</p>
+          <span class="flow-note">💡 找不到源 Skill？先用 nuwa-skill / colleague-skill 创建；说「直接做」跳过全部问题。</span>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot">P1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <h4>基因提取</h4>
+          <p>并行读取所有源 Skill，按 G1–G7 / T1–T5 / C1–C5 逐座位提取，输出基因图谱摘要。</p>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot">P2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <h4>重组规划</h4>
+          <p>两两对比基因，按互补 / 冲突 / 协同 / 矛盾四类处理。协同型融合为超级基因，矛盾型保留为内在张力。</p>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot optional">P3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <h4>基因突变 <span style="color:var(--muted);font-size:.8rem;font-weight:400;">可选</span></h4>
+          <p>产生源 Skill 中不存在的新特质：定向 / 随机涌现 / 逆向 / 过表达。随机突变结果展示后，用户可接受或放弃。</p>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot">P4</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <h4>合成生成</h4>
+          <p>装配完整 SKILL.md：frontmatter + 身份卡 + 主体内容 + 基因来源图谱。合成体是新实体，不是任何源的模仿。</p>
+        </div>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-left">
+          <div class="flow-dot">P5</div>
+        </div>
+        <div class="flow-content">
+          <h4>验证测试</h4>
+          <p>三轮：单源验证 → 杂交优势验证 → 突变基因验证。不通过最多回溯 2 轮至 P2；超限则交付最优版并标注薄弱项。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXAMPLES -->
+<section id="examples">
+  <div class="container">
+    <p class="section-label">Examples</p>
+    <h2 class="section-title">合成示例</h2>
+    <p class="section-sub">从双人物杂交到三方重组、从工具融合到跨类型合成，每个示例都附有完整的基因来源图谱。</p>
+
+    <div class="examples-grid">
+      <div class="ex-card">
+        <div class="ex-header">
+          <span class="ex-type persona">人物 × 人物</span>
+        </div>
+        <h4>芒格 × 费曼</h4>
+        <p class="sources">均等权重 · 过表达突变</p>
+        <p class="ex-highlight"><strong>超级基因：</strong>有基准的多元验证法<br><strong>突变：</strong>强制类比主义——任何问题先找日常类比才能开始分析</p>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-header">
+          <span class="ex-type persona">人物 × 人物</span>
+        </div>
+        <h4>乔布斯 × Naval</h4>
+        <p class="sources">乔布斯 60% · 定向突变</p>
+        <p class="ex-highlight"><strong>超级基因：</strong>极简杠杆主义<br><strong>内在张力：</strong>产品控制欲 vs 个人自由主义</p>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-header">
+          <span class="ex-type persona">人物 × 人物</span>
+        </div>
+        <h4>塔勒布 × 达利欧</h4>
+        <p class="sources">均等权重</p>
+        <p class="ex-highlight"><strong>超级基因：</strong>有原则的反脆弱<br><strong>张力：</strong>拥抱不确定 vs 系统消除不确定</p>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-header">
+          <span class="ex-type tool">工具 × 工具</span>
+        </div>
+        <h4>女娲造人 × 同事蒸馏</h4>
+        <p class="sources">nuwa-skill × colleague-skill · 均等</p>
+        <p class="ex-highlight"><strong>超级基因：</strong>通用人格蒸馏引擎<br>支持公开素材 + 私有素材混合蒸馏</p>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-header">
+          <span class="ex-type cross">人物 × 工具</span>
+        </div>
+        <h4>塔勒布 × 风险分析工具</h4>
+        <p class="sources">taleb-perspective × risk-analyzer</p>
+        <p class="ex-highlight"><strong>超级基因：</strong>凸性优先风险审查<br><strong>突变：</strong>皮肤在场检验——工具会自动问「你自己有没有下注」</p>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-header">
+          <span class="ex-type persona">3人 × 随机突变</span>
+        </div>
+        <h4>芒格 × 费曼 × 塔勒布</h4>
+        <p class="sources">三方均等 · 随机突变</p>
+        <p class="ex-highlight"><strong>超级基因：</strong>鲁棒多元验证<br><strong>涌现突变：</strong>激进不确定性诚实</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INSTALL -->
+<section id="install">
+  <div class="container">
+    <p class="section-label">Quick Start</p>
+    <h2 class="section-title">快速开始</h2>
+    <p class="section-sub">兼容任何支持 SKILL.md 格式的 Agent 平台。SKILL.md 是纯 Markdown，无平台依赖。</p>
+
+    <div class="install-grid">
+      <div class="install-card">
+        <h3><i class="fas fa-terminal"></i> Claude Code</h3>
+        <pre>git clone https://github.com/Liuziyu77/gene-skill \
+  ~/.claude/skills/gene-skill</pre>
+        <p>激活：在对话中输入 <code>/install-skill gene-skill</code></p>
+      </div>
+      <div class="install-card">
+        <h3><i class="fas fa-claw-marks"></i> OpenClaw</h3>
+        <pre>git clone https://github.com/Liuziyu77/gene-skill \
+  ~/.openclaw/skills/gene-skill</pre>
+        <p>OpenClaw 自动扫描 <code>~/.openclaw/skills/</code>；也可手动激活</p>
+      </div>
+      <div class="install-card">
+        <h3><i class="fas fa-puzzle-piece"></i> 通用框架</h3>
+        <pre>git clone https://github.com/Liuziyu77/gene-skill \
+  /path/to/your/skills/gene-skill</pre>
+        <p>或直接将 <code>SKILL.md</code> 内容作为系统提示注入 Agent</p>
+      </div>
+    </div>
+
+    <div class="usage-block">
+      <pre><span class="comment"># 最简单：让 AI 决定一切</span>
+<span class="cmd">把芒格和费曼的 skill 基因重组</span>
+
+<span class="comment"># 指定显性比例——乔布斯风格更强，Naval 留痕迹</span>
+<span class="cmd">把乔布斯和 Naval 的 skill 杂交，乔布斯占 70%</span>
+
+<span class="comment"># 开启随机突变——AI 推导两者组合自然涌现的新特质</span>
+<span class="cmd">把马斯克和塔勒布合成，开启随机突变</span>
+
+<span class="comment"># 定向突变——你指定想要的新能力</span>
+<span class="cmd">把芒格和费曼重组，加一个「苏格拉底式反问」的突变</span>
+
+<span class="comment"># 三个 Skill 同时重组</span>
+<span class="cmd">把芒格、费曼、乔布斯三个 skill 重组成一个决策顾问</span>
+
+<span class="comment"># 跨类型：人物 Skill × 工具 Skill</span>
+<span class="cmd">把塔勒布的 skill 和我的风险分析工具合并</span></pre>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INTEGRATION -->
+<section id="integration">
+  <div class="container">
+    <p class="section-label">Integration</p>
+    <h2 class="section-title">与其他 Skills 联动</h2>
+    <p class="section-sub">gene.skill 是进化器，不是起点。先用其他工具蒸馏出高质量的亲本 Skill，再来杂交。</p>
+    <div class="integ-grid">
+      <div class="integ-card">
+        <i class="fas fa-user-astronaut"></i>
+        <h4>nuwa-skill</h4>
+        <p>从公开素材蒸馏公众人物的思维框架，生成高质量人物 Skill，再用 gene.skill 杂交。</p>
+        <a href="https://github.com/alchaincyf/nuwa-skill" target="_blank">查看项目 →</a>
+      </div>
+      <div class="integ-card">
+        <i class="fas fa-users"></i>
+        <h4>colleague-skill</h4>
+        <p>从私有素材（飞书、钉钉、邮件）蒸馏真实同事的工作风格，作为基因来源参与重组。</p>
+        <a href="https://github.com/alchaincyf/colleague-skill" target="_blank">查看项目 →</a>
+      </div>
+      <div class="integ-card">
+        <i class="fas fa-file-code"></i>
+        <h4>任何 SKILL.md</h4>
+        <p>符合 SKILL.md 格式的任何 Skill 都可以作为基因来源。生态开放，无平台限制。</p>
+        <a href="https://github.com/Liuziyu77/gene-skill" target="_blank">了解格式 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🧬 gene.skill</div>
+  <div class="footer-links">
+    <a href="https://github.com/Liuziyu77/gene-skill" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    <a href="https://github.com/Liuziyu77/gene-skill/blob/main/README.md" target="_blank">中文文档</a>
+    <a href="https://github.com/Liuziyu77/gene-skill/blob/main/README_EN.md" target="_blank">English Docs</a>
+    <a href="https://github.com/Liuziyu77/gene-skill/tree/main/examples" target="_blank">示例库</a>
+  </div>
+  <p>
+    MIT © 2026 &nbsp;·&nbsp;
+    <a href="https://github.com/Liuziyu77">Ziyu Liu</a> · Shanghai Jiao Tong University &nbsp;&amp;&nbsp;
+    Shengyuan Ding · Fudan University
+  </p>
+  <p style="margin-top:8px; font-size:.78rem;">Built on the shoulders of nuwa-skill and colleague-skill.</p>
+</footer>
+
+<script>
+  function switchTab(type, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + type).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
