@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="ClaudeScope — an interactive visualizer for Claude Code session trajectories (time, tokens, tools, thinking).">
+  <meta name="keywords" content="ClaudeScope, Claude Code, agent, trajectory, visualization, Gradio, tool use, token usage">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClaudeScope — Visualize Claude Code Session Trajectories</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <link rel="icon" href="../images/claudescope_assets/logo.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', () => { hljs.highlightAll(); });</script>
+</head>
+
+<style>
+  .section { margin-bottom: -10px; }
+
+  .rainbow-text {
+    background: linear-gradient(to right, #6366f1, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .hero-logo {
+    max-width: 760px;
+    width: 100%;
+    height: auto;
+  }
+
+  .screenshot {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  .screenshot-small { max-width: 92%; }
+
+  .feature-caption {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-top: 8px;
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  .feature-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    background: #eef2ff;
+    color: #4338ca;
+    margin-bottom: 10px;
+  }
+
+  .code-card {
+    background: #0f172a;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 10px 0;
+    overflow-x: auto;
+  }
+  .code-card pre { margin: 0; background: transparent !important; }
+  .code-card code { background: transparent !important; color: #e2e8f0; font-size: 0.9rem; }
+
+  .kbd {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    font-family: 'JetBrains Mono', 'Menlo', monospace;
+    font-size: 0.88em;
+    color: #111827;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .feature-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  }
+  .feature-card .icon {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+    color: #6366f1;
+  }
+  .feature-card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .feature-card p {
+    font-size: 0.88rem;
+    color: #4b5563;
+    margin: 0;
+  }
+</style>
+
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <p><img class="hero-logo" src="../images/claudescope_assets/logo.png" alt="ClaudeScope logo"></p>
+          <h1 class="title is-2 publication-title" style="margin-top: 12px;">
+            <span class="rainbow-text">ClaudeScope</span>: Visualize Claude Code Session Trajectories
+          </h1>
+
+          <div class="is-size-5 publication-authors" style="margin-top: 6px;">
+            <span class="author-block"><a href="https://github.com/Liuziyu77">Ziyu Liu</a></span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">Shanghai Jiao Tong University</span>
+          </div>
+
+          <div class="publication-links" style="margin-top: 14px;">
+            <span class="link-block">
+              <a href="https://github.com/Liuziyu77" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#quickstart" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-terminal"></i></span>
+                <span>Quick Start</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#features" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-chart-gantt"></i></span>
+                <span>Features</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#bibtex" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-quote-left"></i></span>
+                <span>Cite</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser / full UI -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <div style="text-align: center;">
+          <img class="screenshot" src="../images/claudescope_assets/img_5.jpg" alt="ClaudeScope full interface">
+        </div>
+        <p class="feature-caption">The complete ClaudeScope interface — session picker, summary, interactive timeline / token / tool views, and an event inspector.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What it does -->
+<section class="section" style="background-color:#f8f9fb;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">What is <span class="rainbow-text">ClaudeScope</span>?</h2>
+        <div class="content has-text-justified">
+          <p style="font-size: 16px;">
+            Every time you use Claude Code, a full trace of the session —
+            every user prompt, every assistant reply, every
+            <em>thinking</em> block, every tool call (Bash, Edit, Read,
+            TaskCreate, Agent, &hellip;) along with exact timestamps and
+            token usage — is recorded as a JSONL file under
+            <span class="kbd">~/.claude/projects/</span>.
+          </p>
+          <p style="font-size: 16px;">
+            <span class="rainbow-text">ClaudeScope</span> turns that raw
+            log into an interactive Gradio dashboard, so you can literally
+            <em>watch</em> what the agent did — when it was reasoning, when
+            it was waiting on a slow Bash command, where tokens were being
+            spent, and exactly what failed. It is built for researchers
+            who study agent behaviour (failure modes, action patterns,
+            cost) and for developers who simply want to understand where
+            their Claude Code session time went.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="icon"><i class="fas fa-chart-gantt"></i></div>
+            <h4>Timeline Gantt</h4>
+            <p>Every user / text / thinking / tool block on parallel lanes across real time.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon"><i class="fas fa-coins"></i></div>
+            <h4>Token Stream</h4>
+            <p>Per-message stacked tokens with cumulative output, so you can see cost grow.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon"><i class="fas fa-screwdriver-wrench"></i></div>
+            <h4>Tool Stats</h4>
+            <p>Per-tool call counts, wall-time, and failure rates — find the tool eating your session.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon"><i class="fas fa-magnifying-glass"></i></div>
+            <h4>Event Inspector</h4>
+            <p>Drill into any single step — inputs, outputs, thinking, success or error.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features anchor -->
+<section id="features"></section>
+
+<!-- Feature 1: Data input -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <span class="feature-tag">Feature 1</span>
+        <h2 class="title is-3">Pick any session, or upload a file</h2>
+        <div class="content has-text-justified">
+          <p>
+            The dropdown lists every session under
+            <span class="kbd">~/.claude/projects</span>, sorted by last
+            modified, and tagged with project slug, session id, and file
+            size. Got a trace from a colleague? Just drop the
+            <span class="kbd">.jsonl</span> file onto the Upload button.
+            A one-line summary appears immediately: turns,
+            assistant messages, tool calls (with error count), token
+            totals, wallclock vs. active duration, and the model(s) used
+            in this session.
+          </p>
+        </div>
+        <img class="screenshot" src="../images/claudescope_assets/img1.jpg" alt="Session picker and summary">
+        <p class="feature-caption">Session picker + one-line summary. Zero setup: just run <span class="kbd">python -m claudescope.app</span> and your recent sessions are already listed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature 2: Timeline -->
+<section class="section" style="background-color:#f8f9fb;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <span class="feature-tag">Feature 2</span>
+        <h2 class="title is-3">Timeline — see the whole trajectory at a glance</h2>
+        <div class="content has-text-justified">
+          <p>
+            A Gantt chart lays every event on parallel lanes:
+            <strong>User</strong> prompts,
+            <strong>Text</strong> replies,
+            <strong>Thinking</strong> blocks (when extended thinking is
+            used), and one lane per tool
+            (<em>Tool:Bash</em>, <em>Tool:Edit</em>, <em>Tool:Read</em>,
+            <em>Tool:TaskCreate</em>, &hellip;). The x-axis is real time,
+            so long Bash waits, clusters of rapid tool calls, and idle
+            gaps between turns jump out immediately. Colors encode the
+            event kind, so at a glance you see when the agent was
+            reasoning versus when it was waiting on a tool.
+          </p>
+        </div>
+        <img class="screenshot" src="../images/claudescope_assets/img_2_1.jpg" alt="Timeline Gantt chart">
+        <p class="feature-caption">Timeline lanes — user prompts (blue), thinking / text (green), tools (red). One row per tool, so you always know <em>which</em> tool is busy.</p>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered" style="margin-top: 16px;">
+      <div class="column is-six-fifths">
+        <img class="screenshot" src="../images/claudescope_assets/img_2_2.jpg" alt="Timeline hover tooltip">
+        <p class="feature-caption">Hover any block to see exact duration, label (with <code>✗</code> marking failed tool calls), and the turn it belongs to — debug from a visual scan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature 3: Tokens -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <span class="feature-tag">Feature 3</span>
+        <h2 class="title is-3">Tokens — cost over time</h2>
+        <div class="content has-text-justified">
+          <p>
+            A stacked-area chart of per-message token usage:
+            <code>input</code>, <code>cache_read</code>,
+            <code>cache_creation</code>, <code>output</code>. A dotted
+            <code>cumulative_output</code> line on the right y-axis shows
+            how spend grows across the session. Useful for spotting:
+          </p>
+          <ul>
+            <li>runaway context growth (rising <code>cache_read</code> / <code>cache_creation</code>)</li>
+            <li>turns where the model suddenly produced a lot of output</li>
+            <li>how much the prompt cache is actually helping</li>
+          </ul>
+          <p>
+            The <strong>Tools</strong> tab adds a per-tool bar chart of
+            call counts and total wall time, with error counts in the
+            hover — handy for finding the tool that is actually chewing
+            up the session.
+          </p>
+        </div>
+        <img class="screenshot" src="../images/claudescope_assets/img_3.jpg" alt="Token stream chart">
+        <p class="feature-caption">Per-message token breakdown plus cumulative output — one chart tells you where the budget went.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Feature 4: Event Inspector -->
+<section class="section" style="background-color:#f8f9fb;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <span class="feature-tag">Feature 4</span>
+        <h2 class="title is-3">Inspect any single event</h2>
+        <div class="content has-text-justified">
+          <p>
+            Pick any step from the ordered dropdown
+            (<span class="kbd">T&lt;turn&gt; HH:MM:SS [lane] label</span>)
+            to see its full content:
+          </p>
+          <ul>
+            <li><strong>User messages</strong> — the prompt text</li>
+            <li><strong>Assistant messages</strong> — token usage, plain text, a collapsible <em>Thinking</em> block, and the raw input of every tool call</li>
+            <li><strong>Tool calls</strong> — name, <code>✓ ok</code> / <code>❌ error</code>, start time, duration, full input JSON, and the result preview (auto-truncated for huge outputs)</li>
+          </ul>
+          <p>
+            Perfect for answering "what <em>exactly</em> did the agent
+            send to Bash at this step, and what did it get back?"
+          </p>
+        </div>
+        <img class="screenshot" src="../images/claudescope_assets/img_4.jpg" alt="Event inspector view">
+        <p class="feature-caption">The event inspector shows full input, full result, status, and duration — the unit of ground truth for debugging.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Quick start -->
+<section id="quickstart" class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">🚀 Quick Start</h2>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content">
+          <p>Install with the UI extras and launch the Gradio app:</p>
+          <div class="code-card">
+<pre><code class="language-bash">pip install -e '.[viz,dev]'
+
+python -m claudescope.app              # http://127.0.0.1:7860
+python -m claudescope.app --port 9000
+python -m claudescope.app --share      # public tunnel</code></pre>
+          </div>
+          <p>
+            The data layer (<code>claudescope.parser</code> and
+            <code>claudescope.analyzer</code>) only needs
+            <code>pandas</code>; <code>[viz]</code> adds
+            <code>plotly</code> + <code>gradio</code> for the UI.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered" style="margin-top: 24px;">
+      <div class="column is-six-fifths">
+        <h2 class="title is-4">🧪 Use it as a library</h2>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content">
+          <p>The data layer has zero UI dependencies — perfect for building custom dashboards or bulk analysis over many sessions.</p>
+          <div class="code-card">
+<pre><code class="language-python">from claudescope import (
+    parse_jsonl, summary,
+    gantt_events, token_series, tool_stats,
+)
+
+s = parse_jsonl("~/.claude/projects/&lt;slug&gt;/&lt;sessionId&gt;.jsonl")
+print(summary(s))             # SessionSummary dataclass
+
+timeline_df = gantt_events(s) # one row per visible event
+token_df    = token_series(s) # per-message + cumulative
+tools_df    = tool_stats(s)   # n_calls, n_errors, durations</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section id="bibtex" class="section" style="background-color:#f8f9fb;">
+  <div class="container is-max-desktop content">
+    <h2 class="title">📚 BibTeX</h2>
+    <p>If <span class="rainbow-text">ClaudeScope</span> is useful in your research, please cite it as:</p>
+    <div class="code-card">
+<pre><code class="language-bibtex">@software{liu2026claudescope,
+  author       = {Liu, Ziyu},
+  title        = {{ClaudeScope}: Visualize {Claude Code} Session Trajectories},
+  year         = {2026},
+  organization = {Shanghai Jiao Tong University}
+}</code></pre>
+    </div>
+    <p style="margin-top: 16px; color: #6b7280; font-size: 0.9rem;">
+      Released under the <a href="https://opensource.org/licenses/MIT">MIT License</a>
+      — &copy; 2026 Ziyu Liu, Shanghai Jiao Tong University.
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
